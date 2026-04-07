@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela com nomes</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        caption{
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        table{
+            width: 400px;
+            height: 300px;
+            border-collapse: collapse;
+        }
+
+        th,td{
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Exercio de tabelas</h1>
+    <table>
+        <caption>Favourites Films</caption>
+        <thead>
+            <tr>
+                <th scope="col">Grupo</th>
+                <th scope="col">Nomes</th>
+                <th colspan="3" scope="colgroup">Filmes</th>
+
+        <tr>
+        </thead>
+        
+            <th rowspan="3" scope="rowgroup">Mulheres</th>
+            <td scope="row">Ana Beatriz</td>
+            <td >Alien</td>
+            <td>Rambo</td>
+            <td>Vingadores</td>
+        </tr>
+
+        <tr>
+            <td>Beatriz Souza</td>
+            <td>Hulk</td>
+            <td>Inception</td>
+            <td>Batman</td>
+        </tr>
+
+
+        <tr>
+            <td>Claudia Melo</td>
+            <td>Oblivion</td>
+            <td>Matrix</td>
+            <td>Big hero</td>
+        </tr>
+
+        <tr>
+            <th rowspan="3" scope="rowgroup">Homens</th>
+            <td>Bruno Mendonca</td>
+            <td>Intocaveis</td>
+            <td>Amnesia</td>
+            <td>Gladiador</td>
+        </tr>
+
+        <tr>
+            <td>Daniel Lourenco</td>
+            <td>wall-E</td>
+            <td>Oldboy</td>
+            <td>Dangal</td>
+        </tr>
+   
+        <tr>
+            <td>Fabiano Mota</td>
+            <td>Star Wars 3</td>
+            <td>Taxi Driver</td>
+            <td>Toy Story</td>
+        </tr>
+
+        <tfoot>
+            <th colspan="4" scope="row">Total</th>
+            <td>1000</td>
+        </tfoot>
+     </table>
+</body>
+</html>
