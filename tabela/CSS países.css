@@ -1,0 +1,38 @@
+body {
+    font-family: 'Courier New', Courier, monospacea;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+thead {
+    background-color: #ffffff;
+    color: white;
+}
+
+th { 
+    border: 1px solid #000000;
+    padding: 12px;
+    text-align: left;
+    background-color: rgba(255, 0, 0, 0.596);
+}
+
+td { 
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
