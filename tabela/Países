@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
+    <title>Tabela</title>
+</head>
+<body>
+
+    <h1>Tabela</h1>
+
+    <table>
+        <tbody>
+
+            <tr>
+                <th scope="col">pais</th>
+                <th scope="col">capital</th>
+                <th scope="col">população</th>
+                <th scope="col">idioma</th>
+            </tr>
+
+             <tr>
+                
+                <td>
+                    <span class="fi fi-br fis"></span> Brasil
+                </td>
+                <td>Brasilia</td>
+                <td>213 milhões</td>
+                <td>Portugês</td>
+            </tr>
+
+            <tr>
+                <td><span class="fi fi-us fis"></span> USA
+                </td>
+                <td>Washington</td>
+                <td>331 milhões</td>
+                <td>Inglês</td>
+            </tr>
+
+            <tr>
+                <td><span class="fi fi-mx fis"></span> Mexico
+                </td>
+                <td>Cidade do Mexico</td>
+                <td>132 milhões</td>
+                <td>espanhol</td>
+            </tr>
+            <tr>
+                <td><span class="fi fi-ca fis"></span> Canada
+                </td>
+                <td>Ottawa</td>
+                <td>38 milhões</td>
+                <td>Inglês/Francês</td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+</body>
+</html>
