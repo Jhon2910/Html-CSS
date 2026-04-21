@@ -1,61 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="table.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
-    <title>Tabela</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+    <title>Cartão de Visitas - Jonathan</title>
 </head>
+
 <body>
 
-    <h1>Tabela</h1>
+    <header>
+        <h1>Cartão de Visitas - Jonathan</h1>
+        <nav>
+            <a href="#sobre">Sobre mim</a>
+            <a href="#contato">Contato</a>
+            <a href="#jogos">Jogos</a>
+        </nav>
+    </header>
 
-    <table>
-        <tbody>
+    <main>
+        <section id="sobre">
+            <h2>Sobre mim</h2>
+            <img src="imagem.png" width="300" alt="Foto de Jonathan">
 
-            <tr>
-                <th scope="col">pais</th>
-                <th scope="col">capital</th>
-                <th scope="col">população</th>
-                <th scope="col">idioma</th>
-            </tr>
+            <p><strong>Nome:</strong> Jonathan Alexandre Rodrigues Alves</p>
 
-             <tr>
-                
-                <td>
-                    <span class="fi fi-br fis"></span> Brasil
-                </td>
-                <td>Brasilia</td>
-                <td>213 milhões</td>
-                <td>Portugês</td>
-            </tr>
+            <p>
+                <strong>Apresentação:</strong> Jonathan, estudante do
+                <a href="https://ifmg.edu.br/sabara" target="_blank">IFMG Campus Sabará</a>.
+                Sou uma pessoa que gosta muito de videogames e também acompanho a NBA,
+                que é uma das minhas grandes paixões.
+            </p>
+        </section>
 
-            <tr>
-                <td><span class="fi fi-us fis"></span> USA
-                </td>
-                <td>Washington</td>
-                <td>331 milhões</td>
-                <td>Inglês</td>
-            </tr>
+        <section id="contato">
+            <h2>Contato</h2>
 
-            <tr>
-                <td><span class="fi fi-mx fis"></span> Mexico
-                </td>
-                <td>Cidade do Mexico</td>
-                <td>132 milhões</td>
-                <td>espanhol</td>
-            </tr>
-            <tr>
-                <td><span class="fi fi-ca fis"></span> Canada
-                </td>
-                <td>Ottawa</td>
-                <td>38 milhões</td>
-                <td>Inglês/Francês</td>
-            </tr>
+            <p>
+                <img src="linkedin.png" width="15" alt="Ícone do LinkedIn">
+                <a href="https://www.linkedin.com/in/jonathan-rodrigues-18536a340/" target="_blank">LinkedIn</a>
+            </p>
 
-        </tbody>
-    </table>
-    
+            <p>
+                <img src="github.png" width="15" alt="Ícone do GitHub">
+                <a href="https://github.com/Jhon2910" target="_blank">GitHub</a>
+            </p>
+
+            <p>
+                <img src="email.png" width="20" alt="Ícone de email">
+                <a href="mailto:jonathanalexandre2910@gmail.com">jonathanalexandre2910@gmail.com</a>
+            </p>
+        </section>
+
+        <section id="jogos">
+            <h2>Tabela com Jogos</h2>
+
+            <table>
+                <caption>Lista de jogos favoritos</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Jogos</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Duração</th>
+                        <th scope="col">País</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Resident Evil 7</td>
+                        <td>2017</td>
+                        <td>9 hrs</td>
+                        <td><span class="fi fi-jp fis"></span> Japão</td>
+                    </tr>
+
+                    <tr>
+                        <td>GTA V</td>
+                        <td>2013</td>
+                        <td>32 hrs</td>
+                        <td><span class="fi fi-us fis"></span> EUA</td>
+                    </tr>
+
+                    <tr>
+                        <td>Red Dead Redemption 2</td>
+                        <td>2018</td>
+                        <td>40 hrs</td>
+                        <td><span class="fi fi-us fis"></span> EUA</td>
+                    </tr>
+
+                    <tr>
+                        <td>The Last of Us 2</td>
+                        <td>2019</td>
+                        <td>20 hrs</td>
+                        <td><span class="fi fi-us fis"></span> EUA</td>
+                    </tr>
+
+                    <tr>
+                        <td>Horizon Chase Turbo</td>
+                        <td>2018</td>
+                        <td>10 hrs</td>
+                        <td><span class="fi fi-br fis"></span> Brasil</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido por Jonathan Alexandre Rodrigues Alves - 2026</p>
+    </footer>
+
 </body>
+
 </html>
