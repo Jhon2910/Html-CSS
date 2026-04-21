@@ -1,0 +1,108 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: 'Gill Sans', 'Calibri', sans-serif;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* Container central */
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background-color: #222;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Menu */
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Títulos */
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin: 20px 0 10px;
+    color: #333;
+}
+
+/* Seções (efeito de "card") */
+section {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Imagem */
+img {
+    display: block;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Cabeçalho da tabela */
+thead {
+    background-color: #333;
+    color: white;
+}
+
+/* Células */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Linhas alternadas */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover na tabela */
+tbody tr:hover {
+    background-color: #e6e6e6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #222;
+    color: white;
+    margin-top: 20px;
+}
