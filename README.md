@@ -1,6 +1,6 @@
-# 🌐 HTML & CSS Studies
+# 🌐 HTML, CSS & JavaScript Studies
 
-Este repositório contém meus estudos em HTML e CSS, com foco na construção de páginas web modernas, organizadas e responsivas.
+Este repositório contém meus estudos em desenvolvimento web, com foco na construção de páginas modernas, organizadas, interativas e responsivas.
 
 ## 📚 Conteúdo
 
@@ -8,7 +8,9 @@ Este repositório contém meus estudos em HTML e CSS, com foco na construção d
 - Tags e semântica
 - CSS básico e avançado
 - Estilização de páginas
-- Flexbox
-- CSS Grid
+- Flexbox e CSS Grid
 - Responsividade (mobile-first)
-- Projetos práticos
+- Lógica de programação com JavaScript
+- Manipulação do DOM (Document Object Model)
+- Consumo de APIs e assincronismo (Async/Await, Fetch)
+- Projetos práticos e interativos
