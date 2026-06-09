@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 6 - Mágica no Parágrafo</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            gap: 20px;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        img {
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        #gatilho {
+            font-size: 18px;
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: default;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- A imagem NÃO tem eventos — apenas o parágrafo controla a troca -->
+    <img id="foto" src="foto-colorida.jpg" alt="Foto">
+
+    <p
+        id="gatilho"
+        onmouseover="colorir()"
+        onmouseout="descolorir()"
+    >
+        Passe o mouse aqui para ver a mágica
+    </p>
+
+    <script>
+        function colorir() {
+            document.getElementById('foto').style.filter = 'grayscale(0%)';
+        }
+
+        function descolorir() {
+            document.getElementById('foto').style.filter = 'grayscale(100%)';
+        }
+    </script>
+</body>
+</html>
