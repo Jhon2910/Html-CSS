@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameHub — Sua biblioteca de jogos</title>
+
+  <link rel="icon" type="image/png" href="img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">GAME<span>HUB</span></a>
+
+      <nav class="nav">
+        <a href="index.html" class="ativo">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="perfil.html">Perfil</a>
+        <a href="noticias.html">Notícias</a>
+        <a href="contato.html">Contato</a>
+      </nav>
+
+      <button class="menu-toggle" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <div class="hero-tag">SERVIDORES ONLINE</div>
+        <h1>Sua próxima <strong>obsessão</strong> está aqui.</h1>
+        <p>
+          Descubra jogos, acompanhe lançamentos e monte seu perfil gamer.
+          O GameHub é a sua central para tudo que importa no mundo dos games.
+        </p>
+        <div class="acoes-hero">
+          <a href="catalogo.html" class="btn btn-primario">Explorar catálogo</a>
+          <a href="perfil.html" class="btn btn-secundario">Ver meu perfil</a>
+        </div>
+      </div>
+
+      <div class="ficha">
+        <div class="ficha-topo">
+          <div class="ficha-avatar">P1</div>
+          <div>
+            <div class="ficha-nome">Jogador Convidado</div>
+            <div class="ficha-nivel">Nível 24 · Explorador</div>
+          </div>
+        </div>
+        <div class="barra-xp">
+          <div class="barra-xp-preenchida" style="width: 68%;"></div>
+        </div>
+        <div class="ficha-stats">
+          <div class="ficha-stat">
+            <strong>156</strong>
+            <span>Jogos na lista</span>
+          </div>
+          <div class="ficha-stat">
+            <strong>32h</strong>
+            <span>Esta semana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <div class="container">
+      <div class="secao-titulo">
+        <h2>Em destaque</h2>
+        <a href="catalogo.html" class="ver-tudo">Ver catálogo completo →</a>
+      </div>
+
+      <div class="grade-jogos" id="grade-jogos-destaque"></div>
+    </div>
+  </section>
+
+  <section class="secao" style="border-bottom: none;">
+    <div class="container">
+      <div class="secao-titulo">
+        <h2>Últimas notícias</h2>
+        <a href="noticias.html" class="ver-tudo">Ver todas →</a>
+      </div>
+
+      <div class="grade-noticias" id="grade-noticias-destaque"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© 2026 GameHub. Projeto desenvolvido para fins de estudo.</span>
+      <div class="footer-links">
+        <a href="contato.html">Contato</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="perfil.html">Perfil</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/dados.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
