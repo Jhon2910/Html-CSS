@@ -1,0 +1,118 @@
+# 🎮 GameHub
+
+GameHub é um portal web desenvolvido para fins acadêmicos, com foco na exibição de jogos, notícias e perfis de jogadores. O projeto foi construído utilizando apenas HTML, CSS e JavaScript, sem frameworks externos.
+
+## 📌 Funcionalidades
+
+* Página inicial com destaque para jogos populares.
+* Catálogo de jogos com filtros por categoria.
+* Página individual para cada jogo.
+* Sistema de notícias do mundo gamer.
+* Perfil de usuário com estatísticas e jogos recentes.
+* Layout responsivo para desktop e dispositivos móveis.
+* Navegação dinâmica utilizando JavaScript.
+
+---
+
+## 🕹️ Jogos Disponíveis
+
+O catálogo inclui diversos títulos populares, como:
+
+* Grand Theft Auto VI
+* Red Dead Redemption 2
+* The Last of Us Part I
+* The Last of Us Part II
+* God of War Ragnarök
+* Uncharted 4: A Thief's End
+* 007 First Light
+* Batman: Arkham Knight
+* Marvel's Spider-Man 2
+* Elden Ring
+* Need for Speed: Most Wanted
+* Forza Horizon 6
+* Horizon Zero Dawn Remastered
+* Resident Evil 4 Remake
+* Resident Evil 7: Biohazard
+* Little Nightmares
+* Mortal Kombat 1
+
+---
+
+## 📰 Notícias
+
+A seção de notícias apresenta conteúdos relacionados ao universo gamer, incluindo:
+
+* GTA VI
+* Resident Evil
+* PlayStation 5
+* Valve e Steam Deck
+* Mercado de hardware
+* Memória RAM
+* Atualizações e lançamentos de jogos
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+GameHub/
+│
+├── index.html
+├── catalogo.html
+├── jogo.html
+├── noticias.html
+├── perfil.html
+├── contato.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   ├── dados.js
+│   └── script.js
+│
+├── img/
+│   ├── favicon.ico
+│   ├── gta-vi.jpg
+│   ├── red-dead-redemption-2.jpg
+│   ├── ...
+│
+└── README.md
+```
+
+## 🛠️ Tecnologias Utilizadas
+
+* HTML5
+* CSS3
+* JavaScript (ES6)
+* Google Fonts
+
+---
+
+## 🎯 Objetivo do Projeto
+
+Este projeto foi desenvolvido com o objetivo de praticar conceitos de:
+
+* Estruturação de páginas web
+* Manipulação do DOM
+* Organização de dados em JavaScript
+* Layout responsivo
+* Navegação entre páginas
+* Boas práticas de desenvolvimento front-end
+
+---
+
+## 🚀 Como Executar
+
+1. Baixe ou clone o projeto.
+2. Abra a pasta em seu editor de código.
+3. Execute utilizando o Live Server ou outro servidor local.
+4. Acesse o arquivo `index.html` pelo navegador.
+
+---
+
+## 👨‍💻 Autor
+
+Projeto desenvolvido para fins de estudo na disciplina de Desenvolvimento Web.
+
+GameHub © 2026
