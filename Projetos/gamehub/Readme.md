@@ -35,6 +35,9 @@ O catálogo inclui diversos títulos populares, como:
 * Resident Evil 7: Biohazard
 * Little Nightmares
 * Mortal Kombat 1
+* 
+* <img width="1133" height="987" alt="image" src="https://github.com/user-attachments/assets/653e79bb-9057-4ed3-a5c1-a1dd75d006d6" />
+
 
 ---
 
@@ -49,6 +52,8 @@ A seção de notícias apresenta conteúdos relacionados ao universo gamer, incl
 * Mercado de hardware
 * Memória RAM
 * Atualizações e lançamentos de jogos
+* 
+<img width="1096" height="994" alt="image" src="https://github.com/user-attachments/assets/7fc65cc2-5ae6-4353-be35-e1141f1e32f4" />
 
 ---
 
