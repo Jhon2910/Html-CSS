@@ -1,13 +1,12 @@
-
 :root {
-  --bg: #0d0f14;          
-  --bg-card: #15181f;     
+  --bg: #0d0f14;
+  --bg-card: #15181f;
   --bg-card-hover: #1c2029;
-  --linha: #262b35;       
-  --laranja: #ff5c39;    
-  --verde: #3ddc97;       
-  --texto: #e8e6e1;       
-  --texto-fraco: #8b8f99; 
+  --linha: #262b35;
+  --laranja: #ff5c39;
+  --verde: #3ddc97;
+  --texto: #e8e6e1;
+  --texto-fraco: #8b8f99;
 
   --fonte-titulo: "Space Grotesk", sans-serif;
   --fonte-tecnica: "Press Start 2P", monospace;
@@ -51,8 +50,8 @@ ul {
   position: sticky;
   top: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);                  
-  -webkit-backdrop-filter: blur(60px);          
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(60px);
   border-radius: 10px;
   color: #fff;
   z-index: 10;
@@ -62,7 +61,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
+  height: 60px;
 }
 
 .logo {
@@ -415,11 +414,32 @@ ul {
   border-bottom: 1px solid var(--linha);
 }
 
-.jogo-info {
+.jogo-capa-wrapper {
+  width: 100%;
+  max-width: 280px;
+}
+
+.jogo-capa-wrapper img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--linha);
+
+}
+
+.jogo-pagina {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 40px;
+  align-items: start;
   padding: 48px 0;
+}
+
+.jogo-info {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: start;
 }
 
 .jogo-info h1 {
@@ -469,6 +489,22 @@ ul {
 
 .jogo-lateral-linha span:first-child {
   color: var(--texto-fraco);
+}
+
+.jogo-trailer {
+  margin-top: 50px;
+}
+
+.jogo-trailer h2 {
+  margin-bottom: 20px;
+}
+
+.jogo-trailer iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: none;
+  border-radius: 12px;
 }
 
 .grade-noticias {
@@ -673,7 +709,7 @@ ul {
   color: var(--laranja);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
   .grade-jogos {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -686,8 +722,33 @@ ul {
     grid-template-columns: 1fr;
   }
 
+  .jogo-pagina {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
   .jogo-info {
     grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .jogo-capa-wrapper {
+    width: 220px;
+  }
+
+   .jogo-capa-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+
+  .jogo-tag {
+    justify-content: center;
+  }
+
+  .jogo-lateral {
+    width: 100%;
   }
 
   .perfil-stats {
@@ -738,6 +799,4 @@ ul {
     flex-direction: column;
     gap: 12px;
   }
-  
-
 }
