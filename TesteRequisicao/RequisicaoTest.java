@@ -22,7 +22,7 @@ class RequisicaoTest {
     @org.junit.jupiter.api.Test
     void testPegarMetodoEURLMaisElaborada() {
 
-        String documento = "GET /solicitarPdim.html HTTP/1.1\n"
+        String documento = "GET /solicitarPudim.html HTTP/1.1\n"
                 + "Host: www.exemplo.com\n"
                 + "Agent: mozilla";
 
