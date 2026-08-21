@@ -1,76 +1,178 @@
 /* =======================================================
-   IMPORTAÇÃO DE FONTES
+   IMPORTAÇÃO DE FONTE
 ======================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
 /* =======================================================
-   RESET GERAL
+   VARIÁVEIS
+======================================================= */
+
+:root {
+    --primary: #028146;
+    --primary-dark: #016637;
+    --dark: #1f2933;
+    --dark-2: #111827;
+
+    --text: #333;
+    --text-light: #666;
+
+    --background: #f4f6f8;
+    --white: #ffffff;
+
+    --border: #e1e5e8;
+
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    --radius: 12px;
+}
+
+
+/* =======================================================
+   RESET
 ======================================================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 
-/* =======================================================
-   ESTILO GERAL DA PÁGINA
-======================================================= */
+html {
+    scroll-behavior: smooth;
+}
+
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    line-height: 1.6;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.7;
 }
 
 
 /* =======================================================
-   CONTAINER PRINCIPAL
+   LINKS
 ======================================================= */
 
-main {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
 }
 
 
 /* =======================================================
-   CABEÇALHO
+   HEADER
 ======================================================= */
 
 header {
-    display: block;
-    background-color: #333;
+    background: linear-gradient(
+        135deg,
+        var(--dark-2),
+        var(--dark)
+    );
+
     color: white;
-    padding: 15px;
-    text-align: center;
+
+    padding: 35px 20px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.header-content {
+    max-width: 1100px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+
+header p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
 }
 
 
 /* =======================================================
-   MENU DE NAVEGAÇÃO
+   MENU
 ======================================================= */
 
 nav {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
 
 nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-    font-size: large;
+    color: #ffffff;
+
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-/* Hover do menu */
+
 nav a:hover {
-    color: #028146;
+    background-color: var(--primary);
+    color: white;
+}
+
+
+/* =======================================================
+   MAIN
+======================================================= */
+
+main {
+    max-width: 1100px;
+
+    margin: 35px auto;
+
+    padding: 0 20px;
+}
+
+
+/* =======================================================
+   SEÇÕES
+======================================================= */
+
+section {
+    background-color: var(--white);
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
 }
 
 
@@ -78,60 +180,395 @@ nav a:hover {
    TÍTULOS
 ======================================================= */
 
-h1 {
-    margin-bottom: 10px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
 h2 {
-    margin: 20px 0 10px;
-    color: #333;
-}
+    position: relative;
 
-
-/* =======================================================
-   LINKS
-======================================================= */
-a {
-    color: #028146;
-    text-decoration: none;
-}
-
-
-/* =======================================================
-   SEÇÕES / CARDS
-======================================================= */
-
-section {
-    background-color: white;
-
-    padding: 15px;
     margin-bottom: 20px;
 
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    color: var(--dark);
 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-    transition: all 0.2s ease-in-out;
+    font-size: 1.5rem;
 }
 
-/* Efeito hover nas seções */
-section:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+h2::after {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+    height: 3px;
+
+    margin-top: 7px;
+
+    background-color: var(--primary);
+
+    border-radius: 5px;
 }
+
+
+h3 {
+    color: var(--dark);
+}
+
+
+.section-description {
+    color: var(--text-light);
+
+    margin-bottom: 20px;
+}
+
 
 /* =======================================================
-   IMAGENS
+   SOBRE MIM
 ======================================================= */
 
-img {
-    display: block;
-    margin: 10px auto;
-    border-radius: 10px;
+.sobre-container {
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
 }
 
+
+.sobre-container img {
+    width: 250px;
+    height: 250px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 5px solid #e8f5ef;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+.sobre-container p {
+    margin-bottom: 12px;
+}
+
+
+/* =======================================================
+   OBJETIVO
+======================================================= */
+
+.objetivo-box {
+    display: flex;
+
+    gap: 25px;
+
+    padding: 25px;
+
+    background-color: #f0faf5;
+
+    border-left: 4px solid var(--primary);
+
+    border-radius: 8px;
+}
+
+
+.objetivo-box > i {
+    color: var(--primary);
+
+    font-size: 35px;
+
+    margin-top: 5px;
+}
+
+
+.objetivo-box h3 {
+    margin-bottom: 8px;
+}
+
+
+/* =======================================================
+   FORMAÇÃO
+======================================================= */
+
+.formacao-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    transition: 0.25s ease;
+}
+
+
+.formacao-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+
+.formacao-card > i {
+    font-size: 32px;
+
+    color: var(--primary);
+
+    margin-top: 5px;
+}
+
+
+.formacao-card h3 {
+    margin-bottom: 5px;
+}
+
+
+/* =======================================================
+   TABELA
+======================================================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+}
+
+
+thead {
+    background-color: var(--dark);
+
+    color: white;
+}
+
+
+th,
+td {
+    padding: 13px 15px;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+th {
+    font-weight: 600;
+}
+
+
+td i {
+    margin-right: 7px;
+
+    color: var(--primary);
+}
+
+
+tbody tr:nth-child(even) {
+    background-color: #f8faf9;
+}
+
+
+tbody tr {
+    transition: 0.2s ease;
+}
+
+
+tbody tr:hover {
+    background-color: #eaf7f0;
+}
+
+
+/* =======================================================
+   CARDS
+======================================================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+.card {
+    padding: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background-color: white;
+
+    transition: 0.25s ease;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-hover);
+
+    border-color: #c9e8d8;
+}
+
+
+.card > i {
+    font-size: 30px;
+
+    color: var(--primary);
+
+    margin-bottom: 12px;
+}
+
+
+.card h3 {
+    margin-bottom: 8px;
+}
+
+
+.card p {
+    color: var(--text-light);
+
+    font-size: 0.92rem;
+}
+
+
+/* =======================================================
+   PROJETOS
+======================================================= */
+
+.projeto {
+    position: relative;
+}
+
+
+.projeto span {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 5px 10px;
+
+    background-color: #eaf7f0;
+
+    color: var(--primary-dark);
+
+    border-radius: 20px;
+
+    font-size: 0.75rem;
+
+    font-weight: 600;
+}
+
+
+/* =======================================================
+   APRENDIZADO
+======================================================= */
+
+.aprendizado-lista {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+
+.aprendizado-lista div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 15px;
+
+    background-color: #f8faf9;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+
+.aprendizado-lista i {
+    color: var(--primary);
+}
+
+
+/* =======================================================
+   IDIOMAS
+======================================================= */
+
+.idiomas-container {
+    display: flex;
+
+    gap: 20px;
+}
+
+
+.idioma {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex: 1;
+
+    padding: 18px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background-color: #fafafa;
+}
+
+
+.idioma .fi {
+    width: 35px;
+
+    height: 25px;
+
+    border-radius: 4px;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+
+.idioma h3 {
+    font-size: 1rem;
+}
+
+
+.idioma p {
+    color: var(--text-light);
+
+    font-size: 0.85rem;
+}
+
+
+/* =======================================================
+   INTERESSES
+======================================================= */
+
+.interesse {
+    text-align: center;
+}
+
+
+.interesse > i {
+    font-size: 35px;
+}
 
 
 /* =======================================================
@@ -140,124 +577,224 @@ img {
 
 .contato-item {
     display: flex;
+
     align-items: center;
-    gap: 15px;
 
-    padding: 15px;
-    margin-bottom: 15px;
+    gap: 18px;
 
-    border: 1px solid #ddd;
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid var(--border);
+
     border-radius: 10px;
 
-    text-decoration: none;
-    color: black;
+    color: var(--text);
 
-    transition: 0.2s;
+    background-color: white;
+
+    transition: 0.25s ease;
 }
+
 
 .contato-item:hover {
-    background-color: #e6e6e6;
-    transform: scale(1.01);
+    transform: translateX(5px);
+
+    box-shadow: var(--shadow-hover);
+
+    background-color: #fafafa;
 }
 
-
-/* Ícones */
 
 .contato-item i {
-    font-size: 30px;
+    font-size: 32px;
+
+    min-width: 35px;
+
+    text-align: center;
 }
 
 
-/* Cores */
+.contato-item h3 {
+    margin-bottom: 2px;
+}
+
+
+.contato-item p {
+    color: var(--text-light);
+
+    font-size: 0.85rem;
+}
+
+
+/* =======================================================
+   CORES DOS ÍCONES
+======================================================= */
 
 .linkedin i {
     color: #0077b5;
 }
 
-.github i,
+
+.github i {
+    color: #171515;
+}
+
+
 .email i {
-    color: black;
-}
-
-
-/* Título */
-
-.contato-item h3 {
-    margin-bottom: 3px;
-}
-
-
-/* Texto */
-
-.contato-item p {
-    color: #666;
-    font-size: 14px;
+    color: #555;
 }
 
 
 /* =======================================================
-   TABELAS
-======================================================= */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-
-/* =======================================================
-   CABEÇALHO DA TABELA
-======================================================= */
-
-thead {
-    background-color: #333;
-    color: white;
-}
-
-
-/* =======================================================
-   CÉLULAS DA TABELA
-======================================================= */
-
-th,
-td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-
-/* =======================================================
-   LINHAS ALTERNADAS
-======================================================= */
-
-tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-
-/* =======================================================
-   HOVER NAS LINHAS
-======================================================= */
-
-tbody tr:hover {
-    background-color: #e6e6e6;
-}
-
-
-/* =======================================================
-   RODAPÉ
+   FOOTER
 ======================================================= */
 
 footer {
+    background-color: var(--dark-2);
+
+    color: #cbd5e1;
+
     text-align: center;
-    padding: 15px;
 
-    background-color: #222;
-    color: white;
+    padding: 25px 20px;
 
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
+
+footer p {
+    font-size: 0.85rem;
+
+    margin: 3px;
+}
+
+
+footer strong {
+    color: white;
+}
+
+
+/* =======================================================
+   RESPONSIVIDADE
+======================================================= */
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 25px 15px;
+    }
+
+
+    .header-content {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+
+    nav {
+        gap: 3px;
+    }
+
+
+    nav a {
+        font-size: 0.8rem;
+    }
+
+
+    main {
+        margin-top: 20px;
+
+        padding: 0 12px;
+    }
+
+
+    section {
+        padding: 20px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .sobre-container {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .sobre-container img {
+        width: 200px;
+        height: 200px;
+    }
+
+
+    .objetivo-box {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    .aprendizado-lista {
+        grid-template-columns: 1fr;
+    }
+
+
+    .idiomas-container {
+        flex-direction: column;
+    }
+
+}
+
+
+/* =======================================================
+   TABELA NO CELULAR
+======================================================= */
+
+@media (max-width: 600px) {
+
+    table {
+        font-size: 0.78rem;
+    }
+
+
+    th,
+    td {
+        padding: 9px 6px;
+    }
+
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        display: none;
+    }
+
+
+    .contato-item {
+        padding: 15px;
+    }
+
+
+    .contato-item i {
+        font-size: 26px;
+    }
+
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+}
