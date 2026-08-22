@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
     <!-- Flag Icons -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <title>Jonathan Alexandre | Portfólio</title>
 </head>
 
 <body>
+
+    <!-- Barra de Progresso de Leitura -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Estrelas Cintilantes Sutis de Fundo -->
+    <div class="stars-container" id="stars-container" aria-hidden="true"></div>
 
     <!-- ================= HEADER ================= -->
 
@@ -29,26 +33,37 @@
 
             <div>
                 <h1>Jonathan Alexandre</h1>
-                <p>Estudante de Sistemas de Informação | Desenvolvedor em formação</p>
+                <p class="typing-text-wrapper">
+                    <span id="typing-text" class="typing-text">Estudante de Sistemas de Informação</span>
+                    <span class="typing-cursor">|</span>
+                </p>
             </div>
 
             <div class="header-actions">
                 <nav>
                     <a href="#sobre">Sobre</a>
                     <a href="#formacao">Formação</a>
-                    <a href="#tecnologias">Tecnologias</a>
+                    <a href="#certificados">Cursos</a>
+                    <a href="#habilidades">Habilidades</a>
                     <a href="#projetos">Projetos</a>
                     <a href="#contato">Contato</a>
                 </nav>
 
-                <div class="lang-switch">
-                    <a href="index.html" class="lang-btn active" title="Português">
-                        <span class="fi fi-br"></span> PT
-                    </a>
-                    <span class="lang-divider">|</span>
-                    <a href="index_en.html" class="lang-btn" title="English">
-                        <span class="fi fi-us"></span> EN
-                    </a>
+                <div class="header-controls">
+                    <div class="lang-switch is-pt">
+                        <div class="lang-slider"></div>
+                        <a href="index.html" class="lang-btn active" data-lang="pt" title="Português">
+                            <span class="fi fi-br"></span> PT
+                        </a>
+                        <span class="lang-divider">|</span>
+                        <a href="index_en.html" class="lang-btn" data-lang="en" title="English">
+                            <span class="fi fi-us"></span> EN
+                        </a>
+                    </div>
+
+                    <button class="theme-toggle" id="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
             </div>
 
@@ -63,73 +78,37 @@
 
         <section id="sobre">
 
-            <h2>Sobre mim</h2>
-
             <div class="sobre-container">
 
-                <img src="imagem.png"
-                    alt="Foto de Jonathan Alexandre">
+                <img src="img/imagem.png" alt="Foto de Jonathan Alexandre">
 
                 <div>
 
-                    <h3>Olá! Eu sou Jonathan 👋</h3>
+                    <h3>Olá, me chamo Jonathan! 👋</h3>
 
                     <p>
-                        Sou estudante de
-                        <strong>Sistemas de Informação</strong> no
-                        <a href="https://www.ifmg.edu.br/sabara"
-                            target="_blank">
-                            IFMG Campus Sabará
-                        </a>.
+                        Sou estudante de <strong>Sistemas de Informação no <a href="https://www.ifmg.edu.br/sabara" target="_blank" rel="noopener noreferrer">IFMG (Campus Sabará)</a></strong> e desenvolvedor
+                        em constante evolução. Meu foco principal está no <strong>desenvolvimento back-end com Java e
+                            banco de dados com SQL</strong>, além de desenvolvimento web e redes de computadores.
                     </p>
 
                     <p>
-                        Tenho interesse na área de tecnologia e estou
-                        construindo minha carreira com foco em
-                        <strong>desenvolvimento de software, bancos de dados
-                        e infraestrutura de TI</strong>.
+                        Gosto de entender a arquitetura por trás dos sistemas — desde a lógica de negócio e estruturação
+                        do banco de dados até a comunicação em rede e interfaces limpas. Busco sempre construir código
+                        legível, resolver problemas reais e aprender novas tecnologias com projetos práticos.
                     </p>
 
-                    <p>
-                        Atualmente venho desenvolvendo meus conhecimentos
-                        principalmente em Java, desenvolvimento web,
-                        SQL, Python, Git e redes de computadores.
-                    </p>
-
-                    <p>
-                        Também gosto de aprender através de projetos
-                        práticos, exercícios acadêmicos e experimentação
-                        com diferentes tecnologias.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= OBJETIVO ================= -->
-
-        <section id="objetivo">
-
-            <h2>Foco profissional</h2>
-
-            <div class="objetivo-box">
-
-                <i class="fa-solid fa-code"></i>
-
-                <div>
-
-                    <h3>Estudante de Sistemas de Informação & Desenvolvedor em Formação</h3>
-
-                    <p>
-                        Como estudante de Sistemas de Informação, meu foco é consolidar meus fundamentos técnicos e transformar conceitos teóricos em projetos de software práticos e eficientes. Gosto de resolver problemas com código, explorar novas tecnologias e desenvolver soluções úteis.
-                    </p>
-
-                    <p>
-                        Minhas principais áreas de estudo e interesse incluem <strong>desenvolvimento back-end com Java, bancos de dados com SQL, Python, desenvolvimento web e redes de computadores</strong>, buscando sempre aprender continuamente e evoluir minhas habilidades na área de tecnologia.
-                    </p>
+                    <div class="sobre-meta">
+                        <span class="sobre-meta-item">
+                            <i class="fa-solid fa-location-dot"></i> Sabará / BH — MG
+                        </span>
+                        <span class="sobre-meta-item">
+                            <i class="fa-solid fa-graduation-cap"></i> IFMG Campus Sabará
+                        </span>
+                        <span class="sobre-meta-item">
+                            <i class="fa-solid fa-code"></i> Java • SQL • Web • Redes
+                        </span>
+                    </div>
 
                 </div>
 
@@ -142,7 +121,7 @@
 
         <section id="formacao">
 
-            <h2>Formação acadêmica</h2>
+            <h2>Formação Acadêmica</h2>
 
             <div class="formacao-card">
 
@@ -153,14 +132,12 @@
                     <h3>Bacharelado em Sistemas de Informação</h3>
 
                     <p>
-                        <strong>IFMG - Campus Sabará</strong>
+                        <strong><a href="https://www.ifmg.edu.br/sabara" target="_blank" rel="noopener noreferrer">IFMG — Campus Sabará</a></strong> • <em>Em andamento</em>
                     </p>
 
                     <p>
-                        Graduação voltada para desenvolvimento de software,
-                        banco de dados, redes de computadores, engenharia
-                        de software, estruturas de dados, arquitetura de
-                        computadores e fundamentos de tecnologia da informação.
+                        Graduação com base sólida em desenvolvimento de software, banco de dados relacionais, estruturas
+                        de dados, algoritmos, redes de computadores, engenharia de software e arquitetura de sistemas.
                     </p>
 
                 </div>
@@ -170,215 +147,181 @@
         </section>
 
 
-        <!-- ================= TECNOLOGIAS ================= -->
+        <!-- ================= CERTIFICADOS E CURSOS ================= -->
 
-        <section id="tecnologias">
+        <section id="certificados">
 
-            <h2>Tecnologias e conhecimentos</h2>
+            <h2>Certificados & Cursos Complementares</h2>
 
             <p class="section-description">
-                Tecnologias que venho estudando e utilizando em projetos
-                acadêmicos e pessoais.
+                Capacitações extracurriculares que fortalecem meus conhecimentos práticos e teóricos.
             </p>
 
-            <div class="table-responsive">
-                <table>
+            <div class="cursos-grid">
 
-                    <thead>
+                <div class="curso-card">
+                    <div class="curso-header">
+                        <div class="curso-icon">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <span class="curso-badge">Cisco</span>
+                    </div>
+                    <h3>Networking Basics</h3>
+                    <p class="curso-instituicao">
+                        <i class="fa-solid fa-building-columns"></i> Cisco Networking Academy
+                    </p>
+                    <p class="curso-desc">
+                        Fundamentos de arquitetura de redes, modelo OSI/TCP-IP, protocolos, roteamento, endereçamento
+                        IPv4/IPv6 e simulações práticas com Cisco Packet Tracer.
+                    </p>
+                    <div class="curso-tags">
+                        <span>Redes</span>
+                        <span>TCP/IP</span>
+                        <span>IPv4 / IPv6</span>
+                        <span>Packet Tracer</span>
+                    </div>
+                </div>
 
-                        <tr>
-                            <th>Tecnologia</th>
-                            <th>Nível</th>
-                            <th>Área</th>
-                        </tr>
+                <div class="curso-card">
+                    <div class="curso-header">
+                        <div class="curso-icon">
+                            <i class="fa-brands fa-html5"></i>
+                        </div>
+                        <span class="curso-badge">Front-end</span>
+                    </div>
+                    <h3>HTML5 e CSS3</h3>
+                    <p class="curso-instituicao">
+                        <i class="fa-solid fa-graduation-cap"></i> Curso em Vídeo
+                    </p>
+                    <p class="curso-desc">
+                        Estruturação semântica, desenvolvimento web moderno, estilização responsiva, layout flexível com
+                        Flexbox e padrões de usabilidade e design.
+                    </p>
+                    <div class="curso-tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>Web Design</span>
+                        <span>Responsividade</span>
+                    </div>
+                </div>
 
-                    </thead>
+                <div class="curso-card">
+                    <div class="curso-header">
+                        <div class="curso-icon">
+                            <i class="fa-solid fa-desktop"></i>
+                        </div>
+                        <span class="curso-badge">SENAC</span>
+                    </div>
+                    <h3>Operador de Computador</h3>
+                    <p class="curso-instituicao">
+                        <i class="fa-solid fa-building-columns"></i> SENAC
+                    </p>
+                    <p class="curso-desc">
+                        Operação e configuração de sistemas operacionais, pacote Office (Word, Excel, PowerPoint),
+                        gerenciamento de arquivos e rotinas informatizadas.
+                    </p>
+                    <div class="curso-tags">
+                        <span>Sistemas Operacionais</span>
+                        <span>Pacote Office</span>
+                        <span>Informática</span>
+                    </div>
+                </div>
 
-                    <tbody>
+                <div class="curso-card">
+                    <div class="curso-header">
+                        <div class="curso-icon">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <span class="curso-badge">Cisco</span>
+                    </div>
+                    <h3>Inglês para TI (English for IT)</h3>
+                    <p class="curso-instituicao">
+                        <i class="fa-solid fa-building-columns"></i> Cisco Networking Academy
+                    </p>
+                    <p class="curso-desc">
+                        Vocabulário e comunicação técnica em inglês aplicada a tecnologia, desenvolvimento de software,
+                        infraestrutura de redes e suporte.
+                    </p>
+                    <div class="curso-tags">
+                        <span>Inglês Técnico</span>
+                        <span>Vocabulário de TI</span>
+                        <span>Comunicação</span>
+                    </div>
+                </div>
 
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-java"></i>
-                                Java
-                            </td>
-
-                            <td>Intermediário</td>
-
-                            <td>Back-end / Programação</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-html5"></i>
-                                HTML
-                            </td>
-
-                            <td>Intermediário</td>
-
-                            <td>Front-end</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-css3-alt"></i>
-                                CSS
-                            </td>
-
-                            <td>Intermediário</td>
-
-                            <td>Front-end</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-js"></i>
-                                JavaScript
-                            </td>
-
-                            <td>Básico</td>
-
-                            <td>Front-end</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-python"></i>
-                                Python
-                            </td>
-
-                            <td>Básico</td>
-
-                            <td>Programação</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-solid fa-database"></i>
-                                SQL
-                            </td>
-
-                            <td>Básico</td>
-
-                            <td>Banco de Dados</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-git-alt"></i>
-                                Git
-                            </td>
-
-                            <td>Básico</td>
-
-                            <td>Versionamento</td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                <i class="fa-brands fa-github"></i>
-                                GitHub
-                            </td>
-
-                            <td>Básico</td>
-
-                            <td>Versionamento / Portfólio</td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
             </div>
 
         </section>
 
 
-        <!-- ================= FERRAMENTAS ================= -->
+        <!-- ================= HABILIDADES ================= -->
 
-        <section id="ferramentas">
+        <section id="habilidades">
 
-            <h2>Ferramentas e conhecimentos complementares</h2>
+            <h2>Stack & Habilidades Técnicas</h2>
 
-            <div class="cards">
+            <p class="section-description">
+                Tecnologias e ferramentas que utilizo no dia a dia em projetos acadêmicos e pessoais.
+            </p>
 
-                <div class="card">
+            <div class="skills-grid">
 
-                    <i class="fa-solid fa-network-wired"></i>
-
-                    <h3>Redes</h3>
-
-                    <p>
-                        Conhecimentos básicos de redes de computadores,
-                        endereçamento IP, subnetting, DHCP, IPv4,
-                        IPv6 e utilização do Cisco Packet Tracer.
-                    </p>
-
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>Back-end & Banco de Dados</h3>
+                    </div>
+                    <div class="skill-pills">
+                        <span class="skill-pill"><i class="fa-brands fa-java"></i> Java</span>
+                        <span class="skill-pill"><i class="fa-solid fa-leaf"></i> Spring Boot</span>
+                        <span class="skill-pill"><i class="fa-solid fa-database"></i> SQL (PostgreSQL / MySQL)</span>
+                        <span class="skill-pill"><i class="fa-brands fa-python"></i> Python</span>
+                        <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> POO & Estruturas de
+                            Dados</span>
+                    </div>
                 </div>
 
-
-                <div class="card">
-
-                    <i class="fa-solid fa-laptop-code"></i>
-
-                    <h3>Desenvolvimento</h3>
-
-                    <p>
-                        Desenvolvimento de aplicações e páginas web
-                        utilizando Java, HTML, CSS e JavaScript.
-                    </p>
-
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <h3>Front-end & Web</h3>
+                    </div>
+                    <div class="skill-pills">
+                        <span class="skill-pill"><i class="fa-brands fa-html5"></i> HTML5 Semântico</span>
+                        <span class="skill-pill"><i class="fa-brands fa-css3-alt"></i> CSS3 Moderno</span>
+                        <span class="skill-pill"><i class="fa-brands fa-js"></i> JavaScript (ES6+)</span>
+                        <span class="skill-pill"><i class="fa-solid fa-mobile-screen-button"></i> Design
+                            Responsivo</span>
+                        <span class="skill-pill"><i class="fa-solid fa-network-wired"></i> Integração com APIs
+                            REST</span>
+                    </div>
                 </div>
 
-
-                <div class="card">
-
-                    <i class="fa-solid fa-database"></i>
-
-                    <h3>Banco de Dados</h3>
-
-                    <p>
-                        Estudando SQL e conceitos de bancos de dados
-                        relacionais, criação de tabelas, consultas
-                        e manipulação de dados.
-                    </p>
-
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <h3>Redes & Infraestrutura</h3>
+                    </div>
+                    <div class="skill-pills">
+                        <span class="skill-pill"><i class="fa-solid fa-network-wired"></i> Cisco Packet Tracer</span>
+                        <span class="skill-pill"><i class="fa-solid fa-sitemap"></i> Protocolos TCP/IP & OSI</span>
+                        <span class="skill-pill"><i class="fa-solid fa-globe"></i> Subnetting IPv4 & IPv6</span>
+                        <span class="skill-pill"><i class="fa-solid fa-sliders"></i> DHCP, DNS & Roteamento</span>
+                    </div>
                 </div>
 
-
-                <div class="card">
-
-                    <i class="fa-solid fa-code-branch"></i>
-
-                    <h3>Git e GitHub</h3>
-
-                    <p>
-                        Utilização de Git para controle de versões e
-                        GitHub para armazenamento e apresentação
-                        de projetos.
-                    </p>
-
+                <div class="skill-category">
+                    <div class="skill-category-header">
+                        <i class="fa-solid fa-toolbox"></i>
+                        <h3>Ferramentas & Workflow</h3>
+                    </div>
+                    <div class="skill-pills">
+                        <span class="skill-pill"><i class="fa-brands fa-git-alt"></i> Git</span>
+                        <span class="skill-pill"><i class="fa-brands fa-github"></i> GitHub</span>
+                        <span class="skill-pill"><i class="fa-solid fa-code"></i> VS Code & IntelliJ IDEA</span>
+                        <span class="skill-pill"><i class="fa-solid fa-paper-plane"></i> Postman</span>
+                        <span class="skill-pill"><i class="fa-brands fa-linux"></i> Linux / Terminal</span>
+                    </div>
                 </div>
 
             </div>
@@ -390,126 +333,100 @@
 
         <section id="projetos">
 
-            <h2>Projetos</h2>
+            <h2>Projetos em Destaque</h2>
 
             <p class="section-description">
-                Alguns projetos e trabalhos desenvolvidos durante
-                meus estudos.
+                Aplicações e trabalhos desenvolvidos durante a graduação e estudos práticos.
             </p>
 
-            <div class="cards" id="projetos-container">
+            <div class="projetos-grid" id="projetos-container">
 
-
-                <div class="card projeto">
-
-                    <i class="fa-solid fa-gamepad"></i>
-
+                <div class="projeto-card">
+                    <div class="projeto-header">
+                        <i class="fa-solid fa-gamepad projeto-icon"></i>
+                        <span class="curso-badge">Front-end</span>
+                    </div>
                     <h3>GameHub</h3>
-
                     <p>
-                        Projeto web desenvolvido durante a graduação,
-                        utilizando HTML, CSS e JavaScript.
-                        A aplicação apresenta informações sobre jogos,
-                        incluindo trailers e elementos interativos.
+                        Aplicação web desenvolvida na faculdade para catálogo de jogos, apresentando informações
+                        detalhadas, trailers dinâmicos e layout responsivo.
                     </p>
-
-                    <span>HTML • CSS • JavaScript</span>
-
+                    <div class="projeto-tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="projeto-links">
+                        <a href="https://github.com/Jhon2910/html-css-Javascript/tree/main/Projetos/gamehub" target="_blank" rel="noopener noreferrer" class="btn-projeto">
+                            <i class="fa-brands fa-github"></i> Ver no GitHub
+                        </a>
+                    </div>
                 </div>
 
-
-                <div class="card projeto">
-
-                    <i class="fa-brands fa-java"></i>
-
-                    <h3>Projetos em Java</h3>
-
+                <div class="projeto-card">
+                    <div class="projeto-header">
+                        <i class="fa-brands fa-java projeto-icon"></i>
+                        <span class="curso-badge">Back-end</span>
+                    </div>
+                    <h3>Aplicações & APIs em Java</h3>
                     <p>
-                        Exercícios e projetos acadêmicos desenvolvidos
-                        para praticar lógica de programação, estruturas
-                        de dados, orientação a objetos e resolução
-                        de problemas.
+                        Projetos e rotinas em Java aplicando Orientação a Objetos, estruturas de dados, lógica avançada
+                        e arquitetura para resolução de problemas reais.
                     </p>
-
-                    <span>Java • POO • Estruturas de Dados</span>
-
+                    <div class="projeto-tags">
+                        <span>Java</span>
+                        <span>POO</span>
+                        <span>Estruturas de Dados</span>
+                    </div>
+                    <div class="projeto-links">
+                        <a href="https://github.com/Jhon2910/Java" target="_blank" rel="noopener noreferrer" class="btn-projeto">
+                            <i class="fa-brands fa-github"></i> Ver no GitHub
+                        </a>
+                    </div>
                 </div>
 
-
-                <div class="card projeto">
-
-                    <i class="fa-solid fa-database"></i>
-
-                    <h3>Projetos com SQL</h3>
-
+                <div class="projeto-card">
+                    <div class="projeto-header">
+                        <i class="fa-solid fa-database projeto-icon"></i>
+                        <span class="curso-badge">Banco de Dados</span>
+                    </div>
+                    <h3>Modelagem & Consultas SQL</h3>
                     <p>
-                        Exercícios acadêmicos envolvendo criação de
-                        bancos de dados, tabelas, relacionamentos
-                        e consultas SQL.
+                        Estruturação de bancos de dados relacionais, criação de schemas, tabelas com constraints, chaves
+                        estrangeiras e queries otimizadas com joins e agregações.
                     </p>
-
-                    <span>SQL • Banco de Dados</span>
-
+                    <div class="projeto-tags">
+                        <span>SQL</span>
+                        <span>PostgreSQL / MySQL</span>
+                        <span>Modelagem</span>
+                    </div>
+                    <div class="projeto-links">
+                        <a href="https://github.com/Jhon2910/SQL" target="_blank" rel="noopener noreferrer" class="btn-projeto">
+                            <i class="fa-brands fa-github"></i> Ver no GitHub
+                        </a>
+                    </div>
                 </div>
 
-
-                <div class="card projeto">
-
-                    <i class="fa-solid fa-network-wired"></i>
-
-                    <h3>Laboratórios de Redes</h3>
-
+                <div class="projeto-card">
+                    <div class="projeto-header">
+                        <i class="fa-solid fa-network-wired projeto-icon"></i>
+                        <span class="curso-badge">Redes</span>
+                    </div>
+                    <h3>Laboratórios & Simulações de Redes</h3>
                     <p>
-                        Atividades práticas envolvendo configuração
-                        de redes, endereçamento IP, subnetting,
-                        DHCP e simulações utilizando Cisco Packet Tracer.
+                        Topologias de rede configuradas e simuladas no Cisco Packet Tracer, com cálculo de subnetting,
+                        configuração de roteadores/switches, DHCP e IPv4/IPv6.
                     </p>
-
-                    <span>Redes • IPv4 • IPv6 • Cisco Packet Tracer</span>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= APRENDIZADO ================= -->
-
-        <section id="aprendizado">
-
-            <h2>Atualmente estudando</h2>
-
-            <div class="aprendizado-lista">
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>JavaScript</span>
-                </div>
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>SQL e Banco de Dados</span>
-                </div>
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>Python</span>
-                </div>
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>Desenvolvimento Web</span>
-                </div>
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>Estruturas de Dados e Algoritmos</span>
-                </div>
-
-                <div>
-                    <i class="fa-solid fa-check"></i>
-                    <span>Redes de Computadores</span>
+                    <div class="projeto-tags">
+                        <span>Cisco Packet Tracer</span>
+                        <span>IPv4 / IPv6</span>
+                        <span>Roteamento</span>
+                    </div>
+                    <div class="projeto-links">
+                        <a href="https://github.com/Jhon2910/Redes" target="_blank" rel="noopener noreferrer" class="btn-projeto">
+                            <i class="fa-brands fa-github"></i> Ver no GitHub
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -526,94 +443,19 @@
             <div class="idiomas-container">
 
                 <div class="idioma">
-
                     <span class="fi fi-br"></span>
-
                     <div>
                         <h3>Português</h3>
                         <p>Nativo</p>
                     </div>
-
                 </div>
-
 
                 <div class="idioma">
-
                     <span class="fi fi-us"></span>
-
                     <div>
                         <h3>Inglês</h3>
-                        <p>Em desenvolvimento</p>
+                        <p>Em desenvolvimento • Foco em vocabulário técnico de TI</p>
                     </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= INTERESSES ================= -->
-
-        <section id="interesses">
-
-            <h2>Interesses</h2>
-
-            <div class="cards">
-
-                <div class="card interesse">
-
-                    <i class="fa-solid fa-code"></i>
-
-                    <h3>Programação</h3>
-
-                    <p>
-                        Desenvolvimento de software e criação
-                        de soluções utilizando programação.
-                    </p>
-
-                </div>
-
-
-                <div class="card interesse">
-
-                    <i class="fa-solid fa-network-wired"></i>
-
-                    <h3>Infraestrutura</h3>
-
-                    <p>
-                        Redes, computadores, servidores e
-                        infraestrutura de TI.
-                    </p>
-
-                </div>
-
-
-                <div class="card interesse">
-
-                    <i class="fa-solid fa-database"></i>
-
-                    <h3>Dados</h3>
-
-                    <p>
-                        Banco de dados, SQL e organização
-                        de informações.
-                    </p>
-
-                </div>
-
-
-                <div class="card interesse">
-
-                    <i class="fa-solid fa-gamepad"></i>
-
-                    <h3>Games</h3>
-
-                    <p>
-                        Videogames e tecnologia aplicada
-                        ao entretenimento.
-                    </p>
-
                 </div>
 
             </div>
@@ -625,10 +467,11 @@
 
         <section id="contato">
 
-            <h2>Entre em contato</h2>
+            <h2>Vamos conversar?</h2>
 
             <p class="section-description">
-                Você pode me encontrar através das plataformas abaixo ou enviar uma mensagem diretamente.
+                Estou disponível para oportunidades de estágio, projetos e parcerias. Envie uma mensagem no formulário
+                abaixo ou pelas redes:
             </p>
 
             <form id="form-contato" class="form-contato" action="https://formspree.io/f/xkjwebrw" method="POST">
@@ -639,80 +482,43 @@
                 <button type="submit" class="btn-enviar" id="btn-enviar">Enviar Mensagem</button>
             </form>
 
+            <div class="contato-links">
 
-            <a href="https://www.linkedin.com/in/jonathan-rodrigues-18536a340/"
-                target="_blank"
-                class="contato-item linkedin">
+                <a href="https://www.linkedin.com/in/jonathan-rodrigues-18536a340/" target="_blank"
+                    class="contato-item linkedin">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <div>
+                        <h3>LinkedIn</h3>
+                        <p>Conecte-se comigo</p>
+                    </div>
+                </a>
 
-                <i class="fa-brands fa-linkedin"></i>
+                <a href="https://github.com/Jhon2910" target="_blank" class="contato-item github">
+                    <i class="fa-brands fa-github"></i>
+                    <div>
+                        <h3>GitHub</h3>
+                        <p>Acesse meus repositórios</p>
+                    </div>
+                </a>
 
-                <div>
+                <a href="https://wa.me/5531988234307?text=Ol%C3%A1%20Jonathan,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!"
+                    target="_blank" class="contato-item whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <div>
+                        <h3>WhatsApp</h3>
+                        <p>Mensagem direta</p>
+                    </div>
+                </a>
 
-                    <h3>LinkedIn</h3>
+                <a href="mailto:jonathanalexandre2910@gmail.com" class="contato-item email">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>jonathanalexandre2910@gmail.com</p>
+                    </div>
+                </a>
 
-                    <p>
-                        Conecte-se comigo profissionalmente.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a href="https://github.com/Jhon2910"
-                target="_blank"
-                class="contato-item github">
-
-                <i class="fa-brands fa-github"></i>
-
-                <div>
-
-                    <h3>GitHub</h3>
-
-                    <p>
-                        Veja meus projetos, exercícios e repositórios.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a href="https://wa.me/5531988234307?text=Ol%C3%A1%20Jonathan,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!"
-                target="_blank"
-                class="contato-item whatsapp">
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                <div>
-
-                    <h3>WhatsApp</h3>
-
-                    <p>
-                        Envie uma mensagem direta pelo WhatsApp.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a href="mailto:jonathanalexandre2910@gmail.com"
-                class="contato-item email">
-
-                <i class="fa-regular fa-envelope"></i>
-
-                <div>
-
-                    <h3>Email</h3>
-
-                    <p>
-                        Entre em contato comigo por email.
-                    </p>
-
-                </div>
-
-            </a>
+            </div>
 
         </section>
 
@@ -724,15 +530,22 @@
     <footer>
 
         <p>
-            Desenvolvido por
-            <strong>Jonathan Alexandre Rodrigues Alves</strong>
+            Projetado e desenvolvido por <strong>Jonathan Alexandre Rodrigues Alves</strong>
         </p>
 
         <p>
-            © 2026 - Todos os direitos reservados
+            © 2026 — IFMG Campus Sabará
         </p>
 
     </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="back-to-top" id="back-to-top" title="Voltar ao topo" aria-label="Voltar ao topo">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Notificações Toast -->
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
     <script src="main.js"></script>
 
