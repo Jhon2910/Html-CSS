@@ -767,6 +767,11 @@ tbody tr:hover {
 }
 
 
+.whatsapp i {
+    color: #25d366;
+}
+
+
 .email i {
     color: #555;
 }
