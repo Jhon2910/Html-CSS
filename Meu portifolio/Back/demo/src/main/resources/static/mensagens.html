@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Mensagens | Jonathan Alexandre</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #028146;
+            --primary-dark: #016637;
+            --primary-light: #eaf7f0;
+            --dark: #1f2933;
+            --dark-2: #111827;
+            --text: #333333;
+            --text-light: #64748b;
+            --background: #f4f6f8;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--dark-2), var(--dark));
+            color: var(--white);
+            padding: 18px 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-brand i {
+            font-size: 1.8rem;
+            color: #4ade80;
+        }
+
+        .header-brand h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .header-brand p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        /* MAIN CONTAINER */
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* STATS CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .stat-icon.green {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .stat-icon.blue {
+            background-color: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .stat-icon.purple {
+            background-color: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .stat-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.1;
+        }
+
+        .stat-info p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* CONTROLS BAR */
+        .controls-bar {
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border 0.2s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 129, 70, 0.12);
+        }
+
+        .badge-count {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        /* MESSAGES LIST */
+        .messages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .message-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        .message-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sender-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .sender-details h4 {
+            font-size: 1.05rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .sender-details a {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s ease;
+        }
+
+        .sender-details a:hover {
+            color: var(--primary);
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .subject-badge {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .time-badge {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .message-body {
+            background-color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            color: #334155;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .message-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        .btn-reply {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .btn-reply:hover {
+            background-color: #d1fae5;
+        }
+
+        .btn-delete {
+            background-color: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background-color: #fecaca;
+        }
+
+        /* EMPTY & ERROR STATES */
+        .state-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .state-container i {
+            font-size: 3.5rem;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .state-container.error i {
+            color: var(--danger);
+        }
+
+        .state-container h3 {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .state-container p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        /* SPINNER */
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--dark-2);
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+
+        footer strong {
+            color: var(--white);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            header {
+                padding: 14px 15px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            main {
+                padding: 0 12px;
+                margin: 20px auto;
+            }
+
+            .message-card {
+                padding: 18px 15px;
+            }
+
+            .message-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .message-footer {
+                justify-content: stretch;
+            }
+
+            .message-footer .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fa-solid fa-inbox"></i>
+                <div>
+                    <h1>Painel de Mensagens</h1>
+                    <p>Banco de Dados PostgreSQL • Spring Boot</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-outline" id="btn-refresh" title="Recarregar Mensagens">
+                    <i class="fa-solid fa-rotate-right"></i> Atualizar
+                </button>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar ao Portfólio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-total">0</h3>
+                    <p>Total de Mensagens</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-senders">0</h3>
+                    <p>Remetentes Únicos</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="stat-latest" style="font-size: 1.05rem;">--</h3>
+                    <p>Última Mensagem</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="input-search" placeholder="Filtrar por nome, email, assunto ou texto...">
+            </div>
+
+            <div class="badge-count" id="badge-display-count">
+                Carregando...
+            </div>
+        </div>
+
+        <!-- MESSAGES CONTAINER -->
+        <div id="messages-container" class="messages-list">
+            <div class="state-container">
+                <div class="spinner"></div>
+                <h3>Carregando mensagens...</h3>
+                <p>Conectando à API Spring Boot em http://localhost:8080/api/contatos</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 - Desenvolvido por <strong>Jonathan Alexandre Rodrigues Alves</strong></p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const host = window.location.hostname && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && window.location.protocol !== "file:"
+                ? window.location.hostname
+                : "localhost";
+            const API_BASE_URL = `http://${host}:8080`;
+
+            const messagesContainer = document.getElementById("messages-container");
+            const inputSearch = document.getElementById("input-search");
+            const btnRefresh = document.getElementById("btn-refresh");
+            const statTotal = document.getElementById("stat-total");
+            const statSenders = document.getElementById("stat-senders");
+            const statLatest = document.getElementById("stat-latest");
+            const badgeDisplayCount = document.getElementById("badge-display-count");
+
+            let allMessages = [];
+
+            // Formata data ISO para string amigável em PT-BR
+            function formatDate(isoString) {
+                if (!isoString) return "Data não informada";
+                try {
+                    const date = new Date(isoString);
+                    if (isNaN(date.getTime())) return isoString;
+                    return date.toLocaleDateString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    });
+                } catch (e) {
+                    return isoString;
+                }
+            }
+
+            // Atualiza estatísticas
+            function updateStats(messages) {
+                statTotal.textContent = messages.length;
+
+                const uniqueEmails = new Set(messages.map(m => (m.email || "").toLowerCase().trim()).filter(Boolean));
+                statSenders.textContent = uniqueEmails.size;
+
+                if (messages.length > 0 && messages[0].dataEnvio) {
+                    statLatest.textContent = formatDate(messages[0].dataEnvio);
+                } else {
+                    statLatest.textContent = messages.length > 0 ? "Hoje" : "--";
+                }
+            }
+
+            // Renderiza lista de mensagens
+            function renderMessages(messages) {
+                badgeDisplayCount.textContent = `${messages.length} ${messages.length === 1 ? 'mensagem exibida' : 'mensagens exibidas'}`;
+
+                if (messages.length === 0) {
+                    messagesContainer.innerHTML = `
+                        <div class="state-container">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <h3>Nenhuma mensagem encontrada</h3>
+                            <p>Não há mensagens correspondentes à busca ou nenhuma mensagem foi enviada ainda.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                messagesContainer.innerHTML = "";
+
+                messages.forEach(msg => {
+                    const card = document.createElement("div");
+                    card.className = "message-card";
+                    card.id = `msg-${msg.id}`;
+
+                    const initial = (msg.nome || "A").trim().charAt(0).toUpperCase();
+                    const formattedDate = formatDate(msg.dataEnvio);
+
+                    card.innerHTML = `
+                        <div class="message-header">
+                            <div class="sender-info">
+                                <div class="avatar">${initial}</div>
+                                <div class="sender-details">
+                                    <h4>${escapeHtml(msg.nome || "Sem nome")}</h4>
+                                    <a href="mailto:${encodeURIComponent(msg.email || '')}" title="Enviar email">
+                                        <i class="fa-regular fa-envelope"></i> ${escapeHtml(msg.email || "Sem email")}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="message-meta">
+                                <span class="subject-badge">
+                                    <i class="fa-solid fa-tag"></i> ${escapeHtml(msg.assunto || "Sem assunto")}
+                                </span>
+                                <span class="time-badge">
+                                    <i class="fa-regular fa-clock"></i> ${formattedDate}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="message-body">${escapeHtml(msg.mensagem || "")}</div>
+
+                        <div class="message-footer">
+                            <a href="mailto:${encodeURIComponent(msg.email || '')}?subject=Re: ${encodeURIComponent(msg.assunto || 'Contato')}" class="btn btn-sm btn-reply">
+                                <i class="fa-solid fa-reply"></i> Responder por E-mail
+                            </a>
+                            <button class="btn btn-sm btn-delete" onclick="deleteMessage(${msg.id})">
+                                <i class="fa-regular fa-trash-can"></i> Excluir
+                            </button>
+                        </div>
+                    `;
+
+                    messagesContainer.appendChild(card);
+                });
+            }
+
+            // Escape HTML para evitar XSS
+            function escapeHtml(text) {
+                if (!text) return "";
+                const div = document.createElement("div");
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Busca mensagens do backend
+            async function fetchMessages() {
+                messagesContainer.innerHTML = `
+                    <div class="state-container">
+                        <div class="spinner"></div>
+                        <h3>Carregando mensagens...</h3>
+                        <p>Conectando ao banco de dados...</p>
+                    </div>
+                `;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/contatos`);
+                    if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+
+                    allMessages = await response.json();
+                    updateStats(allMessages);
+                    applyFilter();
+                } catch (error) {
+                    console.error("Erro ao carregar mensagens:", error);
+                    statTotal.textContent = "!";
+                    statSenders.textContent = "!";
+                    statLatest.textContent = "Offline";
+                    badgeDisplayCount.textContent = "Servidor Offline";
+
+                    messagesContainer.innerHTML = `
+                        <div class="state-container error">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <h3>Não foi possível conectar ao servidor</h3>
+                            <p>Certifique-se de que o backend Spring Boot está rodando em <strong>${API_BASE_URL}</strong>.</p>
+                            <button class="btn btn-primary" onclick="window.location.reload()">
+                                <i class="fa-solid fa-rotate-right"></i> Tentar Novamente
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+
+            // Filtro de busca
+            function applyFilter() {
+                const query = (inputSearch.value || "").toLowerCase().trim();
+                if (!query) {
+                    renderMessages(allMessages);
+                    return;
+                }
+
+                const filtered = allMessages.filter(msg => {
+                    const nome = (msg.nome || "").toLowerCase();
+                    const email = (msg.email || "").toLowerCase();
+                    const assunto = (msg.assunto || "").toLowerCase();
+                    const texto = (msg.mensagem || "").toLowerCase();
+                    return nome.includes(query) || email.includes(query) || assunto.includes(query) || texto.includes(query);
+                });
+
+                renderMessages(filtered);
+            }
+
+            // Exclui mensagem
+            window.deleteMessage = async function(id) {
+                if (!confirm(`Tem certeza de que deseja excluir a mensagem #${id}?`)) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/contatos/${id}`, {
+                        method: "DELETE"
+                    });
+
+                    if (response.ok) {
+                        allMessages = allMessages.filter(m => m.id !== id);
+                        updateStats(allMessages);
+                        applyFilter();
+                    } else {
+                        alert("Erro ao excluir mensagem.");
+                    }
+                } catch (error) {
+                    console.error("Erro:", error);
+                    alert("Erro ao conectar com o servidor para excluir.");
+                }
+            };
+
+            // Event Listeners
+            inputSearch.addEventListener("input", applyFilter);
+            btnRefresh.addEventListener("click", fetchMessages);
+
+            // Carregamento inicial
+            fetchMessages();
+        });
+    </script>
+
+</body>
+
+</html>
