@@ -176,8 +176,7 @@ function initThemeToggle() {
     const toggleBtn = document.getElementById("theme-toggle");
     if (!toggleBtn) return;
 
-    const savedTheme = localStorage.getItem("portfolio_theme") ||
-        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const savedTheme = localStorage.getItem("portfolio_theme") || "dark";
 
     function applyTheme(theme) {
         document.documentElement.setAttribute("data-theme", theme);

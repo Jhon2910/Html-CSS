@@ -48,33 +48,33 @@
     --primary: #10b981;
     --primary-dark: #059669;
     --primary-light: rgba(16, 185, 129, 0.15);
-    --dark: #0f0f12;
-    --dark-2: #050507;
+    --dark: #090a0f;
+    --dark-2: #000000;
 
-    --text: #f1f5f9;
+    --text: #f3f4f6;
     --text-light: #9ca3af;
     --heading: #ffffff;
 
-    --background: #050507;
-    --surface: #0e0e12;
-    --surface-secondary: #16161b;
+    --background: #000000;
+    --surface: #0a0c10;
+    --surface-secondary: #11141c;
     --border: rgba(255, 255, 255, 0.08);
 
-    --card-bg: #0e0e12;
+    --card-bg: #0a0c10;
     --card-border: rgba(255, 255, 255, 0.08);
-    --card-hover-border: rgba(16, 185, 129, 0.45);
-    --table-stripe: #131318;
-    --table-hover: #1a1a22;
+    --card-hover-border: rgba(16, 185, 129, 0.5);
+    --table-stripe: #0f121a;
+    --table-hover: #161b24;
     --box-accent: rgba(16, 185, 129, 0.12);
     --badge-bg: rgba(16, 185, 129, 0.18);
     --badge-text: #34d399;
 
-    --input-bg: #121217;
-    --input-border: rgba(255, 255, 255, 0.12);
-    --input-text: #ffffff;
+    --input-bg: #0e1118;
+    --input-border: rgba(255, 255, 255, 0.14);
+    --input-text: #f9fafb;
 
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.9);
+    --shadow: 0 4px 22px rgba(0, 0, 0, 0.85);
+    --shadow-hover: 0 10px 32px rgba(0, 0, 0, 0.98), 0 0 15px rgba(16, 185, 129, 0.18);
 }
 
 

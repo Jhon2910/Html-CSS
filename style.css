@@ -48,33 +48,33 @@
     --primary: #10b981;
     --primary-dark: #059669;
     --primary-light: rgba(16, 185, 129, 0.15);
-    --dark: #0f172a;
-    --dark-2: #090d16;
+    --dark: #090a0f;
+    --dark-2: #000000;
 
-    --text: #e2e8f0;
-    --text-light: #94a3b8;
-    --heading: #f8fafc;
+    --text: #f3f4f6;
+    --text-light: #9ca3af;
+    --heading: #ffffff;
 
-    --background: #0b1120;
-    --surface: #131d33;
-    --surface-secondary: #1a2744;
-    --border: rgba(255, 255, 255, 0.1);
+    --background: #000000;
+    --surface: #0a0c10;
+    --surface-secondary: #11141c;
+    --border: rgba(255, 255, 255, 0.08);
 
-    --card-bg: #131d33;
+    --card-bg: #0a0c10;
     --card-border: rgba(255, 255, 255, 0.08);
-    --card-hover-border: rgba(16, 185, 129, 0.4);
-    --table-stripe: #17233d;
-    --table-hover: #1e2f50;
+    --card-hover-border: rgba(16, 185, 129, 0.5);
+    --table-stripe: #0f121a;
+    --table-hover: #161b24;
     --box-accent: rgba(16, 185, 129, 0.12);
-    --badge-bg: rgba(16, 185, 129, 0.2);
+    --badge-bg: rgba(16, 185, 129, 0.18);
     --badge-text: #34d399;
 
-    --input-bg: #1a2744;
-    --input-border: rgba(255, 255, 255, 0.15);
-    --input-text: #f8fafc;
+    --input-bg: #0e1118;
+    --input-border: rgba(255, 255, 255, 0.14);
+    --input-text: #f9fafb;
 
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.55);
+    --shadow: 0 4px 22px rgba(0, 0, 0, 0.85);
+    --shadow-hover: 0 10px 32px rgba(0, 0, 0, 0.98), 0 0 15px rgba(16, 185, 129, 0.18);
 }
 
 
