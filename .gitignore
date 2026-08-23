@@ -1,0 +1,31 @@
+# Sistema Operacional / OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editores & IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Java / Maven Build & Dependencies
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# Banco de Dados Local / Temporary DB files
+*.mv.db
+*.trace.db
