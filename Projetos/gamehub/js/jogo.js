@@ -306,36 +306,39 @@ document.addEventListener("DOMContentLoaded", function () {
             <strong style="color: var(--texto); text-align: right; max-width: 160px;">${escapeHtml(jogo.plataformas)}</strong>
           </div>
 
-          ${videoId ? `
-            <div class="jogo-trailer" style="margin-top: 24px;">
-              <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--texto);"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> ${isEn ? 'Official Trailer' : 'Trailer Oficial'}</h2>
-              
-              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--linha); background: #000;">
-                <iframe
-                  width="560"
-                  height="315"
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                  src="https://www.youtube-nocookie.com/embed/${videoId}?rel=0"
-                  title="${escapeHtml(nomeExibido)} - Trailer Oficial"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                  frameborder="0">
-                </iframe>
-              </div>
+          <div class="jogo-trailer" style="margin-top: 24px;">
+            <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--texto); display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-clapperboard" style="color: var(--laranja);"></i> ${isEn ? 'Official Trailer' : 'Trailer Oficial'}
+            </h2>
+            
+            <div id="player-trailer-jogo"></div>
 
-              ${trailerUrlDireta ? `
-                <a href="${trailerUrlDireta}" target="_blank" rel="noopener noreferrer" class="btn-youtube-watch">
-                  <i class="fa-brands fa-youtube"></i> ${isEn ? 'Watch on YouTube' : 'Assistir no YouTube'}
-                </a>
-              ` : ''}
-            </div>
-          ` : ''}
+            ${trailerUrlDireta ? `
+              <a href="${trailerUrlDireta}" target="_blank" rel="noopener noreferrer" class="btn-youtube-watch">
+                <i class="fa-brands fa-youtube"></i> ${isEn ? 'Watch on YouTube' : 'Assistir no YouTube'}
+              </a>
+            ` : ''}
+          </div>
         </aside>
 
       </div>
     </div>
   `;
+
+  // -------------------------------------------------------
+  // INICIALIZAR GAMEHUB MEDIA ENGINE
+  // -------------------------------------------------------
+  const containerPlayer = document.getElementById("player-trailer-jogo");
+  if (containerPlayer && typeof GameHubMediaPlayer !== "undefined") {
+    const mediaPlayer = new GameHubMediaPlayer(containerPlayer, {
+      poster: imagemFundo,
+      titulo: `${nomeExibido} - ${isEn ? 'Official Trailer' : 'Trailer Oficial'}`,
+      isEn: isEn,
+      autoplay: false,
+      muted: false
+    });
+    mediaPlayer.carregarMidia(jogo.trailer || videoId || trailerUrlDireta, trailerUrlDireta);
+  }
 
   // -------------------------------------------------------
   // CONTROLE DE ABAS (SOBRE / COMENTÁRIOS)
