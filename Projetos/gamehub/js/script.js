@@ -74,7 +74,7 @@ function criarCardJogo(jogo) {
       <a href="${linkJogo}" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit;">
         <div class="card-jogo-capa">
           <span class="card-jogo-categoria">${escapeHtml(categoriaExibida)}</span>
-          <img src="${jogo.imagem}" alt="${escapeHtml(nomeExibido)}" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/library_600x900_2x.jpg';" />
+          <img src="${jogo.imagem}" alt="${escapeHtml(nomeExibido)}" onerror="this.onerror=null;this.src='https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png';" />
         </div>
         <div class="card-jogo-corpo">
           <h3>${escapeHtml(nomeExibido)}</h3>
@@ -252,7 +252,29 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// 7. Inicialização Geral
+// 7. Sincronização Dinâmica com a API do Backend / IGDB
+async function sincronizarComBackendIgdb() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const res = await fetch("http://localhost:8080/api/jogos?limite=100", { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      const dadosRemotos = await res.json();
+      if (Array.isArray(dadosRemotos) && dadosRemotos.length > 0) {
+        window.listaDeJogos = dadosRemotos;
+        const gradeDestaque = document.getElementById("grade-jogos-destaque");
+        if (gradeDestaque) mostrarJogos(window.listaDeJogos.slice(0, 8), "grade-jogos-destaque");
+        const gradeCatalogo = document.getElementById("grade-jogos-catalogo");
+        if (gradeCatalogo) configurarCatalogo();
+      }
+    }
+  } catch (e) {
+    // Backend offline ou rodando de forma estática: mantém a base pré-carregada
+  }
+}
+
+// 8. Inicialização Geral
 document.addEventListener("DOMContentLoaded", function () {
   initThemeGamehub();
   configurarMenuMobile();
@@ -285,4 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Catálogo
   configurarCatalogo();
+
+  // Tenta carregar os dados ao vivo da API do backend Spring Boot / IGDB
+  sincronizarComBackendIgdb();
 });

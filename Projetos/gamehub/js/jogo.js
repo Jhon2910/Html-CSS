@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const trailerUrlDireta = jogo.trailerUrl || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
 
   // Imagens
-  const imagemCapa = jogo.imagem || "img/gta-vi.png";
+  const imagemCapa = jogo.imagem || "https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png";
   const imagemFundo = jogo.fundo || imagemCapa;
 
   // Lojas Oficiais
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <img
                 src="${imagemCapa}"
                 alt="${escapeHtml(nomeExibido)}"
-                onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/library_600x900_2x.jpg';"
+                onerror="this.onerror=null;this.src='https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png';"
               />
             </div>
 

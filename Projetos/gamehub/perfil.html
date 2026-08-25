@@ -699,14 +699,14 @@
 
             ${jogosFavoritos.length === 0 ? `
               <p style="color: var(--texto-fraco); padding: 20px 0;">
-                Sua biblioteca está vazia. <a href="catalogo.html" style="color: var(--laranja); text-decoration: underline;">Clique aqui para explorar os 109 jogos do catálogo</a> e montar sua coleção!
+                Sua biblioteca está vazia. <a href="catalogo.html" style="color: var(--laranja); text-decoration: underline;">Clique aqui para explorar todos os jogos do catálogo</a> e montar sua coleção!
               </p>
             ` : `
               <div class="jogos-favoritos-grid">
                 ${jogosFavoritos.map(j => `
                   <div class="card-fav">
                     <a href="jogo.html?id=${j.id}">
-                      <img src="${j.imagem}" alt="${escapeHtml(j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg';">
+                      <img src="${j.imagem}" alt="${escapeHtml(j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png';">
                     </a>
                     <div class="card-fav-body">
                       <div>
