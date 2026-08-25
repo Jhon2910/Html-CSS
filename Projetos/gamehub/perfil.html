@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Perfil — GameHub</title>
+  <title>Meu Perfil & Contas — GameHub</title>
 
   <link rel="icon" type="image/png" href="img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,14 +14,17 @@
 
   <link rel="stylesheet" href="css/style.css" />
 
+  <!-- Google Identity Services (GSI) API Real -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     .auth-card-box {
-      max-width: 500px;
-      margin: 48px auto;
+      max-width: 520px;
+      margin: 40px auto;
       padding: 36px 30px;
       background: var(--bg-card);
       border: 1px solid var(--linha);
-      border-radius: 12px;
+      border-radius: 14px;
       text-align: center;
       box-shadow: var(--shadow);
     }
@@ -212,22 +215,122 @@
       font-weight: 600;
     }
 
-    .btn-logout {
+    .perfil-acoes-topo {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .btn-perfil-acao {
       background: transparent;
       border: 1px solid var(--linha);
-      color: var(--texto-fraco);
-      padding: 8px 16px;
+      color: var(--texto);
+      padding: 8px 14px;
       border-radius: 6px;
       font-size: 13px;
       cursor: pointer;
       font-family: inherit;
       transition: all 0.2s;
-      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-perfil-acao:hover {
+      border-color: var(--laranja);
+      color: var(--laranja);
     }
 
     .btn-logout:hover {
-      border-color: #ef4444;
-      color: #ef4444;
+      border-color: #ef4444 !important;
+      color: #ef4444 !important;
+    }
+
+    /* GERENCIADOR DE MULTI-CONTAS */
+    .secao-contas-box {
+      background: var(--bg-card);
+      border: 1px solid var(--linha);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .secao-contas-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .secao-contas-header h3 {
+      font-size: 17px;
+      color: var(--texto);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grade-contas-salvas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card-conta-item {
+      background: var(--bg);
+      border: 1px solid var(--linha);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color 0.2s ease;
+    }
+
+    .card-conta-item.ativa {
+      border-color: var(--verde);
+      background: rgba(61, 220, 151, 0.04);
+    }
+
+    .card-conta-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .card-conta-foto {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--linha);
+      flex-shrink: 0;
+    }
+
+    .card-conta-detalhes strong {
+      display: block;
+      font-size: 13px;
+      color: var(--texto);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+    }
+
+    .card-conta-detalhes span {
+      font-size: 11px;
+      color: var(--texto-fraco);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      max-width: 150px;
     }
 
     .jogos-favoritos-grid {
@@ -255,9 +358,9 @@
 
     .card-fav-img {
       width: 100%;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
     }
 
     .card-fav-body {
@@ -292,6 +395,45 @@
       gap: 5px;
       font-family: inherit;
     }
+
+    /* MODAL DE ADICIONAR CONTA */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.aberto {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--linha);
+      border-radius: 14px;
+      max-width: 480px;
+      width: 100%;
+      padding: 30px;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-fechar-modal {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--texto-fraco);
+      font-size: 18px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -304,7 +446,7 @@
         <nav class="nav">
           <a href="index.html">Início</a>
           <a href="catalogo.html">Catálogo</a>
-          <a href="perfil.html" class="ativo">Perfil</a>
+          <a href="perfil.html" class="ativo">Perfil & Contas</a>
           <a href="noticias.html">Notícias</a>
           <a href="contato.html">Contato</a>
         </nav>
@@ -332,6 +474,49 @@
     <!-- Renderizado dinamicamente pelo JavaScript -->
   </div>
 
+  <!-- MODAL DE CONECTAR OUTRA CONTA GOOGLE -->
+  <div class="modal-overlay" id="modal-adicionar-conta">
+    <div class="modal-box">
+      <button class="btn-fechar-modal" id="btn-fechar-modal-conta">&times;</button>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <i class="fa-brands fa-google" style="font-size: 32px; color: var(--laranja); margin-bottom: 8px;"></i>
+        <h3 style="font-size: 20px; color: var(--texto);">Adicionar Outra Conta</h3>
+        <p style="font-size: 13px; color: var(--texto-fraco);">Conecte uma nova conta Google ou cadastre um novo perfil de jogador.</p>
+      </div>
+
+      <!-- Botão da API Real do Google -->
+      <div id="google-signin-btn-container" style="display: flex; justify-content: center; margin-bottom: 16px;"></div>
+
+      <button class="btn-google-connect" id="btn-google-simulado-modal">
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Entrar com Outra Conta Google</span>
+      </button>
+
+      <div class="auth-divider">
+        <span>ou digite os dados</span>
+      </div>
+
+      <form class="form-auth" id="form-adicionar-conta-manual">
+        <div>
+          <label for="modal-nome">Nome / Gamer Tag</label>
+          <input type="text" id="modal-nome" placeholder="Ex: Novo Jogador" required>
+        </div>
+        <div>
+          <label for="modal-email">E-mail</label>
+          <input type="email" id="modal-email" placeholder="novaconta@gmail.com" required>
+        </div>
+        <button type="submit" class="btn-auth-submit">
+          <i class="fa-solid fa-plus"></i> Salvar e Alternar para esta Conta
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Input Oculto para Trocar Avatar -->
   <input type="file" id="input-avatar-upload" accept="image/*" style="display: none;" />
 
@@ -354,14 +539,15 @@
     document.addEventListener("DOMContentLoaded", () => {
       const perfilView = document.getElementById("perfil-view");
       const usuario = obterUsuarioLogado();
+      const todasContas = typeof obterTodasContas === "function" ? obterTodasContas() : [];
 
       if (!usuario) {
-        // TELA DE CADASTRO / LOGIN
+        // TELA DE CADASTRO / LOGIN INICIAL
         perfilView.innerHTML = `
           <div class="auth-card-box">
-            <i class="fa-solid fa-gamepad" style="font-size: 38px; color: var(--laranja); margin-bottom: 14px;"></i>
+            <i class="fa-solid fa-gamepad" style="font-size: 40px; color: var(--laranja); margin-bottom: 14px;"></i>
             <h2>Acesse seu Perfil GameHub</h2>
-            <p>Conecte sua conta para personalizar sua biblioteca gamer e salvar seus jogos favoritos.</p>
+            <p>Conecte sua conta do Google para gerenciar sua biblioteca e salvar seus jogos favoritos.</p>
 
             <button class="btn-google-connect" id="btn-google-login-action">
               <svg width="18" height="18" viewBox="0 0 24 24">
@@ -370,24 +556,22 @@
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
               </svg>
-              <span>Conectar com Conta do Google</span>
+              <span>Conectar com Google (Jonathan Alexandre)</span>
             </button>
 
             <div class="auth-divider">
-              <span>ou preencha seus dados</span>
+              <span>ou cadastre outra conta</span>
             </div>
 
-            <form class="form-auth" id="form-cadastro">
+            <form class="form-auth" id="form-cadastro-inicial">
               <div>
                 <label for="cad-nome">Seu Nome / Gamer Tag</label>
-                <input type="text" id="cad-nome" placeholder="Ex: Jonathan Alexandre" required autocomplete="name">
+                <input type="text" id="cad-nome" placeholder="Ex: Jonathan Alexandre" required>
               </div>
-
               <div>
                 <label for="cad-email">Seu E-mail</label>
-                <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" required autocomplete="email">
+                <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" required>
               </div>
-
               <button type="submit" class="btn-auth-submit">
                 <i class="fa-solid fa-right-to-bracket"></i> Entrar / Cadastrar
               </button>
@@ -396,22 +580,21 @@
         `;
 
         document.getElementById("btn-google-login-action")?.addEventListener("click", () => {
-          conectarComGoogle("Jonathan Alexandre", "jonathanalexandre2910@gmail.com");
+          cadastrarOuTrocarContaManual("Jonathan Alexandre", "jonathanalexandre2910@gmail.com", "img/avatar-jonathan.png");
           window.location.reload();
         });
 
-        document.getElementById("form-cadastro")?.addEventListener("submit", (e) => {
+        document.getElementById("form-cadastro-inicial")?.addEventListener("submit", (e) => {
           e.preventDefault();
           const nome = document.getElementById("cad-nome").value;
           const email = document.getElementById("cad-email").value;
-
-          if (loginManual(nome, email)) {
+          if (cadastrarOuTrocarContaManual(nome, email)) {
             window.location.reload();
           }
         });
 
       } else {
-        // TELA DE PERFIL DO USUÁRIO LOGADO
+        // TELA DE PERFIL ATIVO + GERENCIADOR DE CONTAS
         const favoritosIds = obterFavoritos();
         const jogosFavoritos = typeof listaDeJogos !== "undefined" 
           ? listaDeJogos.filter(j => favoritosIds.includes(j.id)) 
@@ -420,7 +603,7 @@
 
         perfilView.innerHTML = `
           <div class="perfil-topo">
-            <div class="avatar-wrapper" id="btn-trigger-upload" title="Clique para alterar foto">
+            <div class="avatar-wrapper" id="btn-trigger-upload" title="Clique para alterar foto de perfil">
               ${usuario.foto 
                 ? `<img src="${usuario.foto}" alt="${escapeHtml(usuario.nome)}" class="perfil-avatar-img" id="img-avatar-perfil">`
                 : `<div class="perfil-avatar-fallback">${escapeHtml(usuario.nome.charAt(0).toUpperCase())}</div>`
@@ -434,13 +617,59 @@
               <h1>${escapeHtml(usuario.nome)}</h1>
               <p><i class="fa-regular fa-envelope"></i> ${escapeHtml(usuario.email)}</p>
               <div class="perfil-badge">
-                <i class="fa-solid fa-circle-check"></i> ${usuario.provedor === 'google' ? 'Conta Google Verificada' : 'Conta GameHub'} • Membro desde ${usuario.criadoEm || 'fev. de 2026'}
+                <i class="fa-solid fa-circle-check"></i> ${usuario.provedor === 'google' ? 'Conta Google Conectada' : 'Perfil GameHub'} • Membro desde ${usuario.criadoEm || 'fev. de 2026'}
               </div>
             </div>
 
-            <button class="btn-logout" id="btn-logout-action">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair da Conta
-            </button>
+            <div class="perfil-acoes-topo">
+              <button class="btn-perfil-acao" id="btn-abrir-modal-contas">
+                <i class="fa-solid fa-users-gear"></i> Adicionar / Trocar Conta
+              </button>
+              <button class="btn-perfil-acao btn-logout" id="btn-logout-action">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair da Conta
+              </button>
+            </div>
+          </div>
+
+          <!-- GERENCIADOR DE CONTAS CONECTADAS -->
+          <div class="secao-contas-box">
+            <div class="secao-contas-header">
+              <div>
+                <h3><i class="fa-brands fa-google" style="color: var(--laranja);"></i> Gerenciador de Contas (${todasContas.length})</h3>
+                <p style="font-size: 13px; color: var(--texto-fraco);">Alterne rapidamente entre contas ou conecte um novo e-mail Google.</p>
+              </div>
+              <button class="btn-perfil-acao" id="btn-add-conta-atalho" style="border-color: var(--laranja); color: var(--laranja);">
+                <i class="fa-solid fa-user-plus"></i> + Conectar Nova Conta
+              </button>
+            </div>
+
+            <div class="grade-contas-salvas">
+              ${todasContas.map(conta => {
+                const ehAtiva = conta.email.toLowerCase() === usuario.email.toLowerCase();
+                return `
+                  <div class="card-conta-item ${ehAtiva ? 'ativa' : ''}">
+                    <div class="card-conta-user">
+                      <img src="${conta.foto || 'img/avatar-jonathan.png'}" class="card-conta-foto" onerror="this.src='img/avatar-jonathan.png'">
+                      <div class="card-conta-detalhes">
+                        <strong>${escapeHtml(conta.nome)}</strong>
+                        <span>${escapeHtml(conta.email)}</span>
+                      </div>
+                    </div>
+                    <div>
+                      ${ehAtiva ? `
+                        <span style="font-size: 11px; font-weight: 600; color: var(--verde); background: rgba(61,220,151,0.15); padding: 4px 8px; border-radius: 4px;">
+                          <i class="fa-solid fa-check"></i> Ativa
+                        </span>
+                      ` : `
+                        <button class="btn-perfil-acao" onclick="trocarParaConta('${escapeHtml(conta.email)}')" style="padding: 4px 8px; font-size: 11px;">
+                          Alternar
+                        </button>
+                      `}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
           </div>
 
           <div class="ficha-stats" style="grid-template-columns: repeat(4, 1fr); margin: 24px 0 36px;">
@@ -516,8 +745,48 @@
             }
           });
         }
+
+        // Modal de Troca / Adição de Conta
+        const modal = document.getElementById("modal-adicionar-conta");
+        const btnAbrirModal = document.getElementById("btn-abrir-modal-contas");
+        const btnAddAtalho = document.getElementById("btn-add-conta-atalho");
+        const btnFecharModal = document.getElementById("btn-fechar-modal-conta");
+
+        const abrirModal = () => modal.classList.add("aberto");
+        const fecharModal = () => modal.classList.remove("aberto");
+
+        btnAbrirModal?.addEventListener("click", abrirModal);
+        btnAddAtalho?.addEventListener("click", abrirModal);
+        btnFecharModal?.addEventListener("click", fecharModal);
+
+        document.getElementById("btn-google-simulado-modal")?.addEventListener("click", () => {
+          const nomePrompt = prompt("Digite o nome da sua Conta Google:", "Jonathan Google");
+          const emailPrompt = prompt("Digite o e-mail da sua Conta Google:", "usuario.google@gmail.com");
+          if (nomePrompt && emailPrompt) {
+            cadastrarOuTrocarContaManual(nomePrompt, emailPrompt, "https://cdn-icons-png.flaticon.com/512/300/300221.png");
+            window.location.reload();
+          }
+        });
+
+        document.getElementById("form-adicionar-conta-manual")?.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const nome = document.getElementById("modal-nome").value;
+          const email = document.getElementById("modal-email").value;
+          if (cadastrarOuTrocarContaManual(nome, email)) {
+            window.location.reload();
+          }
+        });
       }
     });
+
+    window.trocarParaConta = function(email) {
+      const contas = typeof obterTodasContas === "function" ? obterTodasContas() : [];
+      const conta = contas.find(c => c.email.toLowerCase() === email.toLowerCase());
+      if (conta && typeof ativarConta === "function") {
+        ativarConta(conta);
+        window.location.reload();
+      }
+    };
 
     window.removerFavoritoDoPerfil = function(id) {
       alternarFavorito(id);

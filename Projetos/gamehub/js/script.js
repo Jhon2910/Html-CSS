@@ -67,18 +67,23 @@ function criarCardJogo(jogo) {
   const descricaoExibida = isEn ? (jogo.descricaoCurta_en || jogo.descricaoCurta) : jogo.descricaoCurta;
   const linkJogo = isEn ? `jogo_en.html?id=${jogo.id}` : `jogo.html?id=${jogo.id}`;
 
+  const ehLancado = jogo.lancado !== false && jogo.nota !== null;
+
   return `
     <div class="card-jogo">
       <a href="${linkJogo}" style="display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit;">
         <div class="card-jogo-capa">
           <span class="card-jogo-categoria">${escapeHtml(categoriaExibida)}</span>
-          <img src="${jogo.imagem}" alt="${escapeHtml(nomeExibido)}" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg';" />
+          <img src="${jogo.imagem}" alt="${escapeHtml(nomeExibido)}" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/library_600x900_2x.jpg';" />
         </div>
         <div class="card-jogo-corpo">
           <h3>${escapeHtml(nomeExibido)}</h3>
           <p>${escapeHtml(descricaoExibida)}</p>
           <div class="card-jogo-nota">
-            <span>⭐ <span class="nota">${jogo.nota}</span></span>
+            ${ehLancado 
+              ? `<span>⭐ <span class="nota">${jogo.nota}</span></span>` 
+              : `<span style="color: var(--laranja); font-weight: 600; font-size: 11px;"><i class="fa-solid fa-clock"></i> ${isEn ? 'Upcoming (' + jogo.lancamento + ')' : 'Em Breve (' + jogo.lancamento + ')'}</span>`
+            }
             <span style="color: var(--texto-fraco); font-size: 11px;">${escapeHtml(jogo.desenvolvedora)}</span>
           </div>
         </div>

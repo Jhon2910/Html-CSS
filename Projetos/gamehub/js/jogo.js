@@ -1,5 +1,5 @@
 // =======================================================
-// GAMEHUB GAME DETAILS ENGINE (STORE LINKS & HIGH-RES ART)
+// GAMEHUB GAME DETAILS ENGINE (IGDB BACKDROP, LANGUAGES & REVIEWS)
 // =======================================================
 
 function pegarParametroDaURL(nomeDoParametro) {
@@ -14,9 +14,45 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+function extrairIdYoutube(url) {
+  if (!url) return "";
+  const match = url.match(/(?:embed\/|v=|vi\/|youtu\.be\/|\/v\/|watch\?v=|&v=)([^#&?]*).*/);
+  return (match && match[1]) ? match[1] : "";
+}
+
+// -------------------------------------------------------
+// MOTOR DE COMENTÁRIOS E AVALIAÇÕES (LOCALSTORAGE)
+// -------------------------------------------------------
+function obterComentariosDoJogo(idDoJogo, comentariosPadrao = []) {
+  const storageKey = `gamehub_comentarios_${idDoJogo}`;
+  try {
+    const salvos = localStorage.getItem(storageKey);
+    if (salvos) {
+      return JSON.parse(salvos);
+    }
+  } catch (e) {
+    console.warn("Erro ao ler comentários:", e);
+  }
+  return comentariosPadrao;
+}
+
+function salvarComentariosDoJogo(idDoJogo, listaComentarios) {
+  const storageKey = `gamehub_comentarios_${idDoJogo}`;
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(listaComentarios));
+  } catch (e) {
+    console.warn("Erro ao salvar comentários:", e);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const isEn = document.documentElement.lang === "en" || window.location.pathname.includes("_en.html");
   const idDoJogo = Number(pegarParametroDaURL("id"));
+
+  const langToggle = document.querySelector(".lang-toggle");
+  if (langToggle && idDoJogo) {
+    langToggle.href = isEn ? `jogo.html?id=${idDoJogo}` : `jogo_en.html?id=${idDoJogo}`;
+  }
 
   const containerJogo = document.getElementById("conteudo-jogo");
   if (!containerJogo) return;
@@ -41,84 +77,214 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Traduções
+  // Textos e Traduções
   const nomeExibido = isEn ? (jogo.nome_en || jogo.nome) : jogo.nome;
   const categoriaExibida = isEn ? (jogo.categoria_en || jogo.categoria) : jogo.categoria;
   const descricaoLongaExibida = isEn 
     ? (jogo.descricaoLonga_en || jogo.descricaoLonga || jogo.descricaoCurta_en || jogo.descricaoCurta) 
     : (jogo.descricaoLonga || jogo.descricaoCurta || "Descrição indisponível.");
+  const idiomasExibidos = isEn 
+    ? (jogo.idiomas_en || jogo.idiomas || "English, Portuguese, Spanish, French, German, Japanese")
+    : (jogo.idiomas || "Português (Brasil), Inglês, Espanhol, Francês, Alemão, Japonês");
 
   document.title = `${nomeExibido} — GameHub`;
   const favoritado = typeof ehFavorito === "function" && ehFavorito(jogo.id);
-  const trailerUrlDireta = jogo.trailerUrl || (jogo.trailer ? jogo.trailer.replace("embed/", "watch?v=") : "");
+  
+  // Extração do vídeo oficial
+  const videoId = extrairIdYoutube(jogo.trailer || jogo.trailerUrl);
+  const trailerUrlDireta = jogo.trailerUrl || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
 
-  // Links das Lojas Oficiais
+  // Imagens
+  const imagemCapa = jogo.imagem || "img/gta-vi.png";
+  const imagemFundo = jogo.fundo || imagemCapa;
+
+  // Lojas Oficiais
   const termoBuscaLoja = encodeURIComponent(jogo.nome);
   const linkSteam = `https://store.steampowered.com/search/?term=${termoBuscaLoja}`;
   const linkPsn = `https://store.playstation.com/search/${termoBuscaLoja}`;
   const linkXbox = `https://www.xbox.com/search?q=${termoBuscaLoja}`;
 
+  // Status de Lançamento e Avaliação
+  const ehLancado = jogo.lancado !== false && jogo.nota !== null;
+
+  // Comentários
+  let comentarios = obterComentariosDoJogo(jogo.id, jogo.comentariosPadrao || []);
+
   containerJogo.innerHTML = `
-    <div class="container" style="padding: 40px 24px;">
+    <!-- HERO BACKDROP CINEMATOGRÁFICO (IGDB STYLE) -->
+    <div class="jogo-hero-banner" style="background-image: url('${imagemFundo}');">
+      <div class="jogo-hero-overlay"></div>
+    </div>
+
+    <div class="container jogo-detalhes-container">
       <div class="jogo-pagina">
 
-        <div class="jogo-info">
-          <div class="jogo-capa-wrapper">
-            <img
-              src="${jogo.imagem}"
-              alt="${escapeHtml(nomeExibido)}"
-              onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg';"
-            />
+        <!-- CONTEÚDO PRINCIPAL -->
+        <div class="jogo-info-col">
+          <div class="jogo-cabecalho-principal">
+            <div class="jogo-capa-wrapper">
+              <img
+                src="${imagemCapa}"
+                alt="${escapeHtml(nomeExibido)}"
+                onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/library_600x900_2x.jpg';"
+              />
+            </div>
+
+            <div class="jogo-intro-dados">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 12px;">
+                <div>
+                  <h1 style="font-size: 32px; line-height: 1.15; color: var(--texto); font-weight: 700; margin-bottom: 6px;">${escapeHtml(nomeExibido)}</h1>
+                  <span style="font-size: 13px; color: var(--laranja); font-family: var(--fonte-tecnica); text-transform: uppercase;">${escapeHtml(jogo.desenvolvedora)}</span>
+                </div>
+                
+                <!-- BOTÃO SALVAR NA BIBLIOTECA -->
+                <button id="btn-fav-jogo" class="btn-fav-jogo-action ${favoritado ? 'ativo' : ''}">
+                  <i class="${favoritado ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                  <span id="btn-fav-jogo-texto">${favoritado ? (isEn ? 'Saved in Library' : 'Salvo na Biblioteca') : (isEn ? 'Save to Library' : 'Salvar na Biblioteca')}</span>
+                </button>
+              </div>
+
+              <!-- STATUS DE LANÇAMENTO & AVALIAÇÃO -->
+              ${ehLancado ? `
+                <div style="color: var(--verde); font-weight: 600; font-size: 15px; margin-bottom: 14px; display: flex; align-items: center; gap: 6px;">
+                  ⭐ <span class="nota" style="font-size: 16px; font-weight: 700;">${jogo.nota}</span> ${isEn ? 'player rating' : 'de avaliação dos jogadores'}
+                </div>
+              ` : `
+                <div class="box-jogo-unreleased">
+                  <div class="badge-unreleased">
+                    <i class="fa-solid fa-clock"></i> ${isEn ? 'Upcoming / In Development' : 'Aguardando Lançamento Oficial'}
+                  </div>
+                  <div class="info-unreleased">
+                    ⭐ <strong>N/A</strong> — ${isEn ? 'Ratings will be available after the official release in ' + jogo.lancamento : 'Avaliações estarão disponíveis após o lançamento oficial previsto para ' + jogo.lancamento}
+                  </div>
+                </div>
+              `}
+
+              <div class="jogo-tags" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                <span class="jogo-tag" style="background: var(--bg-card); border: 1px solid var(--linha); padding: 4px 10px; border-radius: 4px; font-size: 12px; color: var(--verde); font-weight: 600;">${escapeHtml(categoriaExibida)}</span>
+                <span class="jogo-tag" style="background: var(--bg-card); border: 1px solid var(--linha); padding: 4px 10px; border-radius: 4px; font-size: 12px; color: var(--texto-fraco);">${escapeHtml(jogo.plataformas)}</span>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 14px;">
-              <h1 style="font-size: 32px; line-height: 1.2; color: var(--texto);">${escapeHtml(nomeExibido)}</h1>
-              
-              <!-- BOTÃO SALVAR NA BIBLIOTECA -->
-              <button id="btn-fav-jogo" class="btn-fav-jogo-action ${favoritado ? 'ativo' : ''}">
-                <i class="${favoritado ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
-                <span id="btn-fav-jogo-texto">${favoritado ? (isEn ? 'Saved in Library' : 'Salvo na Biblioteca') : (isEn ? 'Save to Library' : 'Salvar na Biblioteca')}</span>
+          <!-- ABAS DE NAVEGAÇÃO INTERNA (SOBRE / IDIOMAS / COMENTÁRIOS) -->
+          <div class="abas-jogo-container">
+            <div class="abas-botoes">
+              <button class="aba-btn ativa" data-aba="sobre">
+                <i class="fa-solid fa-align-left"></i> ${isEn ? 'Overview & Languages' : 'Visão Geral & Idiomas'}
+              </button>
+              <button class="aba-btn" data-aba="comentarios">
+                <i class="fa-solid fa-comments"></i> ${isEn ? 'Community Reviews' : 'Comentários da Comunidade'} (<span id="contagem-comentarios-aba">${comentarios.length}</span>)
               </button>
             </div>
 
-            <div style="color: var(--verde); font-weight: 600; font-size: 15px; margin-bottom: 14px;">
-              ⭐ <span class="nota" style="font-size: 16px;">${jogo.nota}</span> ${isEn ? 'player rating' : 'de avaliação dos jogadores'}
-            </div>
+            <!-- ABA 1: VISÃO GERAL & IDIOMAS -->
+            <div id="aba-sobre" class="aba-conteudo ativa">
+              <h3 style="font-size: 18px; color: var(--texto); margin-bottom: 12px; font-weight: 700;">
+                ${isEn ? 'About the Game' : 'Sobre o Jogo'}
+              </h3>
+              <p class="jogo-descricao" style="line-height: 1.75; font-size: 15px; color: var(--texto); margin-bottom: 24px;">
+                ${escapeHtml(descricaoLongaExibida)}
+              </p>
 
-            <div class="jogo-tags" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
-              <span class="jogo-tag" style="background: var(--bg-card); border: 1px solid var(--linha); padding: 4px 10px; border-radius: 4px; font-size: 12px; color: var(--verde); font-weight: 600;">${escapeHtml(categoriaExibida)}</span>
-              <span class="jogo-tag" style="background: var(--bg-card); border: 1px solid var(--linha); padding: 4px 10px; border-radius: 4px; font-size: 12px; color: var(--texto-fraco);">${escapeHtml(jogo.plataformas)}</span>
-            </div>
+              <!-- SEÇÃO DE IDIOMAS DISPONÍVEIS -->
+              <div class="secao-idiomas" style="background: var(--bg-card); border: 1px solid var(--linha); border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+                <h4 style="font-size: 15px; color: var(--texto); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-language" style="color: var(--laranja);"></i> ${isEn ? 'Available Languages & Localization' : 'Idiomas Disponíveis & Localização'}
+                </h4>
+                
+                <div class="grid-idiomas-badges" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;">
+                  <span class="badge-idioma ${jogo.dublado !== false ? 'destaque' : ''}">
+                    <i class="fa-solid fa-microphone"></i> ${isEn ? (jogo.dublado !== false ? 'Audio: PT-BR & English' : 'Audio: English') : (jogo.dublado !== false ? 'Áudio: Dublado em PT-BR & EN' : 'Áudio Original em Inglês')}
+                  </span>
+                  <span class="badge-idioma destaque">
+                    <i class="fa-solid fa-closed-captioning"></i> ${isEn ? 'Subtitles: PT-BR, EN & Multiple' : 'Legendas: PT-BR, EN & Múltiplos'}
+                  </span>
+                  <span class="badge-idioma">
+                    <i class="fa-solid fa-desktop"></i> ${isEn ? 'Interface: 100% Translated' : 'Interface: 100% Traduzida'}
+                  </span>
+                </div>
 
-            <p class="jogo-descricao" style="line-height: 1.75; font-size: 15px; color: var(--texto); margin-bottom: 28px;">
-              ${escapeHtml(descricaoLongaExibida)}
-            </p>
+                <div style="font-size: 13px; color: var(--texto-fraco); line-height: 1.6;">
+                  <strong style="color: var(--texto);">${isEn ? 'Full list of supported languages:' : 'Lista completa de idiomas suportados:'}</strong><br />
+                  ${escapeHtml(idiomasExibidos)}
+                </div>
+              </div>
 
-            <!-- LINKS PARA DOWNLOAD NAS LOJAS OFICIAIS -->
-            <div class="secao-lojas">
-              <h3><i class="fa-solid fa-download" style="color: var(--laranja);"></i> ${isEn ? 'Get / Download on Official Stores' : 'Baixar / Comprar nas Lojas Oficiais'}</h3>
-              <div class="lojas-grid">
-                <a href="${linkSteam}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-steam">
-                  <i class="fa-brands fa-steam"></i> Steam (PC)
-                </a>
-                <a href="${linkPsn}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-psn">
-                  <i class="fa-brands fa-playstation"></i> PlayStation Store
-                </a>
-                <a href="${linkXbox}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-xbox">
-                  <i class="fa-brands fa-xbox"></i> Xbox Store
-                </a>
+              <!-- LINKS PARA DOWNLOAD NAS LOJAS OFICIAIS -->
+              <div class="secao-lojas">
+                <h3><i class="fa-solid fa-download" style="color: var(--laranja);"></i> ${isEn ? 'Get / Wishlist on Official Stores' : 'Baixar / Lista de Desejos nas Lojas Oficiais'}</h3>
+                <div class="lojas-grid">
+                  <a href="${linkSteam}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-steam">
+                    <i class="fa-brands fa-steam"></i> Steam (PC)
+                  </a>
+                  <a href="${linkPsn}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-psn">
+                    <i class="fa-brands fa-playstation"></i> PlayStation Store
+                  </a>
+                  <a href="${linkXbox}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-xbox">
+                    <i class="fa-brands fa-xbox"></i> Xbox Store
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div style="margin-top: 24px;">
-              <a href="${isEn ? 'catalogo_en.html' : 'catalogo.html'}" class="btn btn-secundario">
-                ${isEn ? '← Back to catalog' : '← Voltar ao catálogo'}
-              </a>
+            <!-- ABA 2: COMENTÁRIOS DA COMUNIDADE -->
+            <div id="aba-comentarios" class="aba-conteudo">
+              <div class="comentarios-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                <h3 style="font-size: 18px; color: var(--texto); font-weight: 700; margin: 0;">
+                  ${isEn ? 'Community Reviews' : 'Avaliações e Comentários'}
+                </h3>
+                <div style="font-size: 14px; color: var(--texto-fraco);">
+                  ⭐ <strong style="color: var(--texto);" id="media-comentarios">${ehLancado ? jogo.nota : 'N/A'}</strong> ${isEn ? 'community score' : 'média da comunidade'}
+                </div>
+              </div>
+
+              <!-- FORMULÁRIO DE NOVO COMENTÁRIO -->
+              <div class="form-novo-comentario" style="background: var(--bg-card); border: 1px solid var(--linha); border-radius: 10px; padding: 20px; margin-bottom: 28px;">
+                <h4 style="font-size: 14px; color: var(--texto); margin-bottom: 12px;">
+                  <i class="fa-solid fa-pen" style="color: var(--laranja);"></i> ${isEn ? 'Leave your review or comment' : 'Deixe sua avaliação ou comentário'}
+                </h4>
+                
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                  <span style="font-size: 13px; color: var(--texto-fraco);">${isEn ? 'Your Rating:' : 'Sua Nota:'}</span>
+                  <div id="estrelas-seletor" style="display: flex; gap: 6px; cursor: pointer; color: var(--laranja); font-size: 18px;">
+                    <i class="fa-solid fa-star" data-valor="1"></i>
+                    <i class="fa-solid fa-star" data-valor="2"></i>
+                    <i class="fa-solid fa-star" data-valor="3"></i>
+                    <i class="fa-solid fa-star" data-valor="4"></i>
+                    <i class="fa-solid fa-star" data-valor="5"></i>
+                  </div>
+                  <input type="hidden" id="input-nota-comentario" value="5" />
+                </div>
+
+                <textarea
+                  id="texto-novo-comentario"
+                  placeholder="${isEn ? 'Write what you think about this game...' : 'Escreva o que você achou deste jogo, jogabilidade, gráficos ou expectativas...'}"
+                  rows="3"
+                  style="width: 100%; padding: 12px; background: var(--bg); border: 1px solid var(--linha); border-radius: 6px; color: var(--texto); font-family: inherit; font-size: 14px; resize: vertical; margin-bottom: 12px;"
+                ></textarea>
+
+                <div style="display: flex; justify-content: flex-end;">
+                  <button id="btn-enviar-comentario" class="btn btn-primario" style="padding: 8px 20px; font-size: 13px;">
+                    <i class="fa-solid fa-paper-plane"></i> ${isEn ? 'Post Review' : 'Publicar Comentário'}
+                  </button>
+                </div>
+              </div>
+
+              <!-- LISTA DE COMENTÁRIOS -->
+              <div id="lista-comentarios-container" class="lista-comentarios"></div>
             </div>
+
+          </div>
+
+          <div style="margin-top: 24px;">
+            <a href="${isEn ? 'catalogo_en.html' : 'catalogo.html'}" class="btn btn-secundario">
+              ${isEn ? '← Back to catalog' : '← Voltar ao catálogo'}
+            </a>
           </div>
         </div>
 
+        <!-- BARRA LATERAL COM TRAILER E METADADOS -->
         <aside class="jogo-lateral" style="background: var(--bg-card); border: 1px solid var(--linha); border-radius: 12px; padding: 24px; box-shadow: var(--shadow);">
           <div class="jogo-lateral-linha" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--linha); font-size: 13px;">
             <span style="color: var(--texto-fraco);">${isEn ? 'Developer' : 'Desenvolvedora'}</span>
@@ -127,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           <div class="jogo-lateral-linha" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--linha); font-size: 13px;">
             <span style="color: var(--texto-fraco);">${isEn ? 'Release Date' : 'Lançamento'}</span>
-            <strong style="color: var(--texto);">${escapeHtml(jogo.lancamento)}</strong>
+            <strong style="color: ${ehLancado ? 'var(--texto)' : 'var(--laranja)'};">${escapeHtml(jogo.lancamento)}</strong>
           </div>
 
           <div class="jogo-lateral-linha" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--linha); font-size: 13px;">
@@ -140,17 +306,21 @@ document.addEventListener("DOMContentLoaded", function () {
             <strong style="color: var(--texto); text-align: right; max-width: 160px;">${escapeHtml(jogo.plataformas)}</strong>
           </div>
 
-          ${jogo.trailer ? `
+          ${videoId ? `
             <div class="jogo-trailer" style="margin-top: 24px;">
-              <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--texto);">${isEn ? 'Official Trailer' : 'Trailer Oficial'}</h2>
+              <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--texto);"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> ${isEn ? 'Official Trailer' : 'Trailer Oficial'}</h2>
+              
               <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--linha); background: #000;">
                 <iframe
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                  src="${jogo.trailer}"
-                  title="Trailer de ${escapeHtml(nomeExibido)}"
-                  frameborder="0"
+                  width="560"
+                  height="315"
+                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                  src="https://www.youtube-nocookie.com/embed/${videoId}?rel=0"
+                  title="${escapeHtml(nomeExibido)} - Trailer Oficial"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen>
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  frameborder="0">
                 </iframe>
               </div>
 
@@ -167,6 +337,157 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   `;
 
+  // -------------------------------------------------------
+  // CONTROLE DE ABAS (SOBRE / COMENTÁRIOS)
+  // -------------------------------------------------------
+  const abaBotoes = document.querySelectorAll(".aba-btn");
+  abaBotoes.forEach(btn => {
+    btn.addEventListener("click", () => {
+      abaBotoes.forEach(b => b.classList.remove("ativa"));
+      document.querySelectorAll(".aba-conteudo").forEach(c => c.classList.remove("ativa"));
+
+      btn.classList.add("ativa");
+      const targetId = `aba-${btn.getAttribute("data-aba")}`;
+      const targetConteudo = document.getElementById(targetId);
+      if (targetConteudo) targetConteudo.classList.add("ativa");
+    });
+  });
+
+  // -------------------------------------------------------
+  // RENDERIZAÇÃO DE COMENTÁRIOS
+  // -------------------------------------------------------
+  function renderizarListaComentarios() {
+    const listaContainer = document.getElementById("lista-comentarios-container");
+    if (!listaContainer) return;
+
+    if (comentarios.length === 0) {
+      listaContainer.innerHTML = `
+        <div style="padding: 24px; text-align: center; color: var(--texto-fraco); background: var(--bg-card); border-radius: 8px; border: 1px dashed var(--linha);">
+          <i class="fa-regular fa-comment-dots" style="font-size: 28px; margin-bottom: 8px; color: var(--laranja);"></i>
+          <p>${isEn ? 'No reviews yet. Be the first to review!' : 'Ainda não há comentários. Seja o primeiro a avaliar este jogo!'}</p>
+        </div>
+      `;
+      return;
+    }
+
+    listaContainer.innerHTML = comentarios.map((com, index) => {
+      const estrelasHtml = Array.from({ length: 5 }, (_, i) => 
+        i < (com.nota || 5) 
+          ? '<i class="fa-solid fa-star" style="color: var(--laranja); font-size: 12px;"></i>' 
+          : '<i class="fa-regular fa-star" style="color: var(--linha); font-size: 12px;"></i>'
+      ).join("");
+
+      return `
+        <div class="comentario-card" style="background: var(--bg-card); border: 1px solid var(--linha); border-radius: 8px; padding: 16px; margin-bottom: 14px; display: flex; gap: 14px;">
+          <img src="${com.avatar || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + encodeURIComponent(com.autor)}" alt="${escapeHtml(com.autor)}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--linha); flex-shrink: 0; background: var(--bg);" />
+          
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+              <div>
+                <strong style="font-size: 14px; color: var(--texto); margin-right: 8px;">${escapeHtml(com.autor)}</strong>
+                <span style="font-size: 11px; color: var(--texto-fraco);">${escapeHtml(com.data)}</span>
+              </div>
+              <div style="display: flex; gap: 2px;">
+                ${estrelasHtml}
+              </div>
+            </div>
+
+            <p style="font-size: 14px; color: var(--texto); line-height: 1.5; margin-bottom: 10px;">
+              ${escapeHtml(com.texto)}
+            </p>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <button class="btn-like-comentario" onclick="curtirComentario(${index})" style="background: transparent; border: none; color: var(--texto-fraco); cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 4px;">
+                <i class="fa-regular fa-thumbs-up"></i> <span>${com.likes || 0}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    const badgeAba = document.getElementById("contagem-comentarios-aba");
+    if (badgeAba) badgeAba.textContent = comentarios.length;
+  }
+
+  renderizarListaComentarios();
+
+  // -------------------------------------------------------
+  // CURTIR COMENTÁRIO
+  // -------------------------------------------------------
+  window.curtirComentario = function (index) {
+    if (comentarios[index]) {
+      comentarios[index].likes = (comentarios[index].likes || 0) + 1;
+      salvarComentariosDoJogo(jogo.id, comentarios);
+      renderizarListaComentarios();
+    }
+  };
+
+  // -------------------------------------------------------
+  // SELETOR DE ESTRELAS NO FORMULÁRIO
+  // -------------------------------------------------------
+  const estrelas = document.querySelectorAll("#estrelas-seletor i");
+  const inputNota = document.getElementById("input-nota-comentario");
+
+  estrelas.forEach(star => {
+    star.addEventListener("click", function () {
+      const valor = Number(this.getAttribute("data-valor"));
+      if (inputNota) inputNota.value = valor;
+
+      estrelas.forEach((s, idx) => {
+        if (idx < valor) {
+          s.className = "fa-solid fa-star";
+        } else {
+          s.className = "fa-regular fa-star";
+        }
+      });
+    });
+  });
+
+  // -------------------------------------------------------
+  // ENVIAR NOVO COMENTÁRIO
+  // -------------------------------------------------------
+  const btnEnviar = document.getElementById("btn-enviar-comentario");
+  const textarea = document.getElementById("texto-novo-comentario");
+
+  if (btnEnviar && textarea) {
+    btnEnviar.addEventListener("click", function () {
+      const texto = textarea.value.trim();
+      if (!texto) {
+        alert(isEn ? "Please type a review before submitting." : "Por favor, digite seu comentário antes de enviar.");
+        return;
+      }
+
+      // Obtém usuário logado do auth.js ou visitante padrão
+      const user = typeof obterUsuarioLogado === "function" ? obterUsuarioLogado() : null;
+      const nomeAutor = user ? user.nome : (isEn ? "Player" : "Jogador GameHub");
+      const avatarAutor = user && user.foto ? user.foto : `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
+      const notaValor = inputNota ? Number(inputNota.value) : 5;
+
+      const hoje = new Date();
+      const dataFormatada = hoje.toLocaleDateString(isEn ? "en-US" : "pt-BR");
+
+      const novoComentario = {
+        id: `com_${Date.now()}`,
+        autor: nomeAutor,
+        avatar: avatarAutor,
+        nota: notaValor,
+        data: dataFormatada,
+        texto: texto,
+        likes: 0
+      };
+
+      comentarios.unshift(novoComentario);
+      salvarComentariosDoJogo(jogo.id, comentarios);
+      renderizarListaComentarios();
+
+      textarea.value = "";
+    });
+  }
+
+  // -------------------------------------------------------
+  // FAVORITOS
+  // -------------------------------------------------------
   const btnFav = document.getElementById("btn-fav-jogo");
   if (btnFav) {
     btnFav.addEventListener("click", function () {

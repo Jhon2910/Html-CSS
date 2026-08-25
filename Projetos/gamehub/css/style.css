@@ -571,6 +571,69 @@ ul {
 }
 
 /* =======================================================
+   CINEMATIC HERO BACKDROP (IGDB STYLE)
+======================================================= */
+.jogo-hero-banner {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  margin-bottom: -140px;
+}
+
+.jogo-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 15, 20, 0.35) 0%, rgba(13, 15, 20, 0.85) 65%, var(--bg) 100%);
+}
+
+[data-theme="light"] .jogo-hero-overlay {
+  background: linear-gradient(180deg, rgba(244, 246, 248, 0.35) 0%, rgba(244, 246, 248, 0.88) 65%, var(--bg) 100%);
+}
+
+.jogo-detalhes-container {
+  position: relative;
+  z-index: 5;
+  padding: 0 24px 60px;
+}
+
+/* STATUS JOGO NÃO LANÇADO (UPCOMING) */
+.box-jogo-unreleased {
+  background: rgba(255, 92, 57, 0.08);
+  border: 1px solid rgba(255, 92, 57, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.badge-unreleased {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--fonte-tecnica);
+}
+
+.info-unreleased {
+  font-size: 13px;
+  color: var(--texto);
+  line-height: 1.4;
+}
+
+.info-unreleased strong {
+  color: var(--laranja);
+}
+
+/* =======================================================
    DETALHES DO JOGO (PÁGINA INDIVIDUAL)
 ======================================================= */
 .jogo-pagina {
@@ -580,17 +643,23 @@ ul {
   align-items: start;
 }
 
-.jogo-info {
+.jogo-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.jogo-cabecalho-principal {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 32px;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
   align-items: start;
+  margin-bottom: 24px;
 }
 
 .jogo-capa-wrapper {
   width: 100%;
   aspect-ratio: 3 / 4;
-  max-height: 400px;
+  max-height: 360px;
   background-color: var(--bg-card);
   border-radius: 12px;
   overflow: hidden;
@@ -604,6 +673,84 @@ ul {
   object-fit: cover;
   object-position: center center;
   image-rendering: -webkit-optimize-contrast;
+}
+
+/* ABAS DE NAVEGAÇÃO INTERNA */
+.abas-jogo-container {
+  margin-top: 12px;
+}
+
+.abas-botoes {
+  display: flex;
+  gap: 12px;
+  border-bottom: 2px solid var(--linha);
+  margin-bottom: 20px;
+}
+
+.aba-btn {
+  background: transparent;
+  border: none;
+  color: var(--texto-fraco);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aba-btn:hover {
+  color: var(--texto);
+}
+
+.aba-btn.ativa {
+  color: var(--laranja);
+  border-bottom-color: var(--laranja);
+}
+
+.aba-conteudo {
+  display: none;
+}
+
+.aba-conteudo.ativa {
+  display: block;
+  animation: fadeInAba 0.25s ease;
+}
+
+@keyframes fadeInAba {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* BADGES DE IDIOMAS */
+.badge-idioma {
+  background: var(--bg);
+  border: 1px solid var(--linha);
+  color: var(--texto-fraco);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-idioma.destaque {
+  border-color: rgba(34, 197, 94, 0.4);
+  color: var(--verde);
+  background: rgba(34, 197, 94, 0.06);
+  font-weight: 600;
+}
+
+.btn-like-comentario:hover {
+  color: var(--laranja) !important;
+  background: rgba(255, 92, 57, 0.1) !important;
 }
 
 .btn-fav-jogo-action {
@@ -985,11 +1132,49 @@ textarea.input-custom {
 @media (max-width: 768px) {
   .grade-jogos {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
   }
 
-  .jogo-info {
+  .card-jogo-corpo {
+    padding: 12px;
+  }
+
+  .card-jogo-corpo h3 {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .card-jogo-corpo p {
+    font-size: 11px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .card-jogo-categoria {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+
+  .btn-fav-card {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .jogo-info,
+  .jogo-cabecalho-principal {
     grid-template-columns: 1fr;
+  }
+
+  .jogo-capa-wrapper {
+    max-width: 240px;
+    margin: 0 auto;
   }
 
   .lojas-grid {
@@ -1038,6 +1223,38 @@ textarea.input-custom {
 
 @media (max-width: 480px) {
   .grade-jogos {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  .card-jogo-corpo {
+    padding: 10px;
+  }
+
+  .card-jogo-corpo h3 {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .card-jogo-corpo p {
+    display: none; /* Em telas muito pequenas oculta a descrição curta para manter proporção perfeita 2x2 */
+  }
+
+  .card-jogo-nota {
+    font-size: 10px;
+    padding-top: 6px;
+  }
+
+  .container {
+    padding: 0 14px;
+  }
+
+  .filtros {
+    gap: 6px;
+  }
+
+  .filtro-btn {
+    padding: 5px 10px;
+    font-size: 11px;
   }
 }
