@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Perfil — GameHub</title>
+  <title>My Profile — GameHub</title>
 
   <link rel="icon" type="image/png" href="img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -298,28 +298,28 @@
 
   <header class="header">
     <div class="container">
-      <a href="index.html" class="logo">GAME<span>HUB</span></a>
+      <a href="index_en.html" class="logo">GAME<span>HUB</span></a>
 
       <div class="header-right">
         <nav class="nav">
-          <a href="index.html">Início</a>
-          <a href="catalogo.html">Catálogo</a>
-          <a href="perfil.html" class="ativo">Perfil</a>
-          <a href="noticias.html">Notícias</a>
-          <a href="contato.html">Contato</a>
+          <a href="index_en.html">Home</a>
+          <a href="catalogo_en.html">Catalog</a>
+          <a href="perfil_en.html" class="ativo">Profile</a>
+          <a href="noticias_en.html">News</a>
+          <a href="contato_en.html">Contact</a>
         </nav>
 
         <div class="header-controls">
-          <a href="perfil_en.html" class="lang-toggle" title="Switch to English">
-            <span class="active">PT</span> / <span>EN</span>
+          <a href="perfil.html" class="lang-toggle" title="Switch to Portuguese">
+            <span>PT</span> / <span class="active">EN</span>
           </a>
 
-          <button class="theme-toggle-btn" id="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
+          <button class="theme-toggle-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
             <i class="fa-regular fa-moon"></i>
           </button>
         </div>
 
-        <button class="menu-toggle" aria-label="Abrir menu">
+        <button class="menu-toggle" aria-label="Open menu">
           <span></span>
           <span></span>
           <span></span>
@@ -329,19 +329,18 @@
   </header>
 
   <div class="container" id="perfil-view">
-    <!-- Renderizado dinamicamente pelo JavaScript -->
+    <!-- Rendered via JavaScript -->
   </div>
 
-  <!-- Input Oculto para Trocar Avatar -->
   <input type="file" id="input-avatar-upload" accept="image/*" style="display: none;" />
 
   <footer class="footer">
     <div class="container">
-      <span>© 2026 GameHub. Desenvolvido por Jonathan Alexandre.</span>
+      <span>© 2026 GameHub. Developed by Jonathan Alexandre.</span>
       <div class="footer-links">
-        <a href="../../index.html">← Voltar ao Portfólio Principal</a>
-        <a href="catalogo.html">Catálogo</a>
-        <a href="contato.html">Contato</a>
+        <a href="../../index_en.html">← Back to Main Portfolio</a>
+        <a href="catalogo_en.html">Catalog</a>
+        <a href="contato_en.html">Contact</a>
       </div>
     </div>
   </footer>
@@ -356,12 +355,12 @@
       const usuario = obterUsuarioLogado();
 
       if (!usuario) {
-        // TELA DE CADASTRO / LOGIN
+        // SIGN IN / REGISTRATION SCREEN
         perfilView.innerHTML = `
           <div class="auth-card-box">
             <i class="fa-solid fa-gamepad" style="font-size: 38px; color: var(--laranja); margin-bottom: 14px;"></i>
-            <h2>Acesse seu Perfil GameHub</h2>
-            <p>Conecte sua conta para personalizar sua biblioteca gamer e salvar seus jogos favoritos.</p>
+            <h2>Access your GameHub Profile</h2>
+            <p>Connect your account to personalize your gaming library and save your favorite games.</p>
 
             <button class="btn-google-connect" id="btn-google-login-action">
               <svg width="18" height="18" viewBox="0 0 24 24">
@@ -370,26 +369,26 @@
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
               </svg>
-              <span>Conectar com Conta do Google</span>
+              <span>Connect with Google Account</span>
             </button>
 
             <div class="auth-divider">
-              <span>ou preencha seus dados</span>
+              <span>or enter your details</span>
             </div>
 
             <form class="form-auth" id="form-cadastro">
               <div>
-                <label for="cad-nome">Seu Nome / Gamer Tag</label>
-                <input type="text" id="cad-nome" placeholder="Ex: Jonathan Alexandre" required autocomplete="name">
+                <label for="cad-nome">Your Name / Gamer Tag</label>
+                <input type="text" id="cad-nome" placeholder="e.g. Jonathan Alexandre" required autocomplete="name">
               </div>
 
               <div>
-                <label for="cad-email">Seu E-mail</label>
-                <input type="email" id="cad-email" placeholder="seuemail@exemplo.com" required autocomplete="email">
+                <label for="cad-email">Your Email</label>
+                <input type="email" id="cad-email" placeholder="youremail@example.com" required autocomplete="email">
               </div>
 
               <button type="submit" class="btn-auth-submit">
-                <i class="fa-solid fa-right-to-bracket"></i> Entrar / Cadastrar
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In / Create Account
               </button>
             </form>
           </div>
@@ -411,16 +410,16 @@
         });
 
       } else {
-        // TELA DE PERFIL DO USUÁRIO LOGADO
+        // LOGGED IN USER PROFILE SCREEN
         const favoritosIds = obterFavoritos();
         const jogosFavoritos = typeof listaDeJogos !== "undefined" 
           ? listaDeJogos.filter(j => favoritosIds.includes(j.id)) 
           : [];
-        const categoriasUnicas = new Set(jogosFavoritos.map(j => j.categoria)).size;
+        const categoriasUnicas = new Set(jogosFavoritos.map(j => j.categoria_en || j.categoria)).size;
 
         perfilView.innerHTML = `
           <div class="perfil-topo">
-            <div class="avatar-wrapper" id="btn-trigger-upload" title="Clique para alterar foto">
+            <div class="avatar-wrapper" id="btn-trigger-upload" title="Click to change profile picture">
               ${usuario.foto 
                 ? `<img src="${usuario.foto}" alt="${escapeHtml(usuario.nome)}" class="perfil-avatar-img" id="img-avatar-perfil">`
                 : `<div class="perfil-avatar-fallback">${escapeHtml(usuario.nome.charAt(0).toUpperCase())}</div>`
@@ -434,59 +433,59 @@
               <h1>${escapeHtml(usuario.nome)}</h1>
               <p><i class="fa-regular fa-envelope"></i> ${escapeHtml(usuario.email)}</p>
               <div class="perfil-badge">
-                <i class="fa-solid fa-circle-check"></i> ${usuario.provedor === 'google' ? 'Conta Google Verificada' : 'Conta GameHub'} • Membro desde ${usuario.criadoEm || 'fev. de 2026'}
+                <i class="fa-solid fa-circle-check"></i> ${usuario.provedor === 'google' ? 'Verified Google Account' : 'GameHub Account'} • Member since ${usuario.criadoEm || 'Feb. 2026'}
               </div>
             </div>
 
             <button class="btn-logout" id="btn-logout-action">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair da Conta
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
             </button>
           </div>
 
           <div class="ficha-stats" style="grid-template-columns: repeat(4, 1fr); margin: 24px 0 36px;">
             <div class="ficha-stat">
               <strong>${jogosFavoritos.length}</strong>
-              <span>Jogos na biblioteca</span>
+              <span>Games in library</span>
             </div>
             <div class="ficha-stat">
               <strong>${categoriasUnicas}</strong>
-              <span>Gêneros favoritos</span>
+              <span>Favorite genres</span>
             </div>
             <div class="ficha-stat">
               <strong>${listaDeJogos.length}</strong>
-              <span>Total no catálogo</span>
+              <span>Total in catalog</span>
             </div>
             <div class="ficha-stat">
               <strong>100%</strong>
-              <span>Perfil ativo</span>
+              <span>Active profile</span>
             </div>
           </div>
 
           <section class="secao" style="border-bottom: none; padding-top: 0;">
             <div class="secao-titulo">
-              <h2>Minha Biblioteca & Favoritos (${jogosFavoritos.length})</h2>
-              <a href="catalogo.html" class="ver-tudo">+ Adicionar mais jogos →</a>
+              <h2>My Library & Favorites (${jogosFavoritos.length})</h2>
+              <a href="catalogo_en.html" class="ver-tudo">+ Add more games →</a>
             </div>
 
             ${jogosFavoritos.length === 0 ? `
               <p style="color: var(--texto-fraco); padding: 20px 0;">
-                Sua biblioteca está vazia. <a href="catalogo.html" style="color: var(--laranja); text-decoration: underline;">Clique aqui para explorar os 109 jogos do catálogo</a> e montar sua coleção!
+                Your library is empty. <a href="catalogo_en.html" style="color: var(--laranja); text-decoration: underline;">Click here to browse all 109 games</a> and build your collection!
               </p>
             ` : `
               <div class="jogos-favoritos-grid">
                 ${jogosFavoritos.map(j => `
                   <div class="card-fav">
-                    <a href="jogo.html?id=${j.id}">
-                      <img src="${j.imagem}" alt="${escapeHtml(j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg';">
+                    <a href="jogo_en.html?id=${j.id}">
+                      <img src="${j.imagem}" alt="${escapeHtml(j.nome_en || j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg';">
                     </a>
                     <div class="card-fav-body">
                       <div>
-                        <span style="color: var(--verde); font-size: 11px; font-weight: 600; text-transform: uppercase;">${escapeHtml(j.categoria)}</span>
-                        <h4>${escapeHtml(j.nome)}</h4>
+                        <span style="color: var(--verde); font-size: 11px; font-weight: 600; text-transform: uppercase;">${escapeHtml(j.categoria_en || j.categoria)}</span>
+                        <h4>${escapeHtml(j.nome_en || j.nome)}</h4>
                         <span>⭐ ${j.nota} • ${escapeHtml(j.desenvolvedora)}</span>
                       </div>
                       <button class="btn-remover-fav" onclick="removerFavoritoDoPerfil(${j.id})">
-                        <i class="fa-regular fa-trash-can"></i> Remover da lista
+                        <i class="fa-regular fa-trash-can"></i> Remove from list
                       </button>
                     </div>
                   </div>
@@ -498,7 +497,7 @@
 
         document.getElementById("btn-logout-action")?.addEventListener("click", fazerLogout);
 
-        // Upload de avatar interativo
+        // Interactive avatar upload
         const btnUpload = document.getElementById("btn-trigger-upload");
         const fileInput = document.getElementById("input-avatar-upload");
 

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <title>Tech News & Artigos | Jonathan Alexandre</title>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="brand" title="Voltar ao Início">
+                <i class="fa-solid fa-house" style="font-size: 0.85rem; margin-right: 4px; opacity: 0.7;"></i> Jonathan Alexandre
+            </a>
+
+            <div class="nav-right">
+                <nav>
+                    <a href="index.html">Início</a>
+                    <a href="portfolio.html">Portfólio</a>
+                    <a href="Projetos/gamehub/index.html">GameHub</a>
+                    <a href="portfolio.html#contato">Contato</a>
+                </nav>
+
+                <div class="nav-tools">
+                    <a href="news.html" class="lang-toggle" title="Switch to English">
+                        <span class="active">PT</span> / <span>EN</span>
+                    </a>
+
+                    <button class="theme-btn" id="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
+                        <i class="fa-regular fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+    <main class="container">
+
+        <section style="margin-bottom: 36px;">
+            <h2>Radar de Tecnologia & Artigos</h2>
+            <p class="hero-bio" style="font-size: 1.05rem; margin-bottom: 24px;">
+                Notas, novidades e artigos sobre desenvolvimento de software, arquitetura back-end, banco de dados, redes e ecossistema tech.
+            </p>
+
+            <div style="margin-bottom: 28px;">
+                <input type="text" id="news-search" placeholder="Buscar por título, tag ou tema..." style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-family: inherit; font-size: 0.92rem; outline: none;">
+            </div>
+        </section>
+
+        <div class="projects-list" id="news-container">
+
+            <article class="project-item">
+                <div class="project-header">
+                    <span class="project-title" style="cursor: default;">
+                        Java & Spring Boot: O Poder dos Virtual Threads e Alta Performance
+                    </span>
+                </div>
+                <p class="project-desc">
+                    Como o Project Loom e os Virtual Threads revolucionaram a concorrência no ecossistema Java, permitindo escalabilidade massiva com consumo mínimo de recursos.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Back-end</span>
+                    <span class="tag">Performance</span>
+                </div>
+            </article>
+
+            <article class="project-item">
+                <div class="project-header">
+                    <span class="project-title" style="cursor: default;">
+                        Modelagem de Dados Relacionais: Boas Práticas de Normalização
+                    </span>
+                </div>
+                <p class="project-desc">
+                    Um resumo prático sobre como planejar schemas consistentes em PostgreSQL/MySQL, aplicando da 1ª à 3ª forma normal para evitar redundâncias e inconsistências.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">SQL</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Modelagem</span>
+                    <span class="tag">Bancos de Dados</span>
+                </div>
+            </article>
+
+            <article class="project-item">
+                <div class="project-header">
+                    <span class="project-title" style="cursor: default;">
+                        Desmistificando Redes: Do Modelo OSI à Configuração Prática
+                    </span>
+                </div>
+                <p class="project-desc">
+                    Compreendendo como os pacotes viajam através de switches e roteadores, cálculos de máscaras de sub-rede IPv4/IPv6 e roteamento na prática.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Redes</span>
+                    <span class="tag">TCP/IP</span>
+                    <span class="tag">Cisco</span>
+                    <span class="tag">Infraestrutura</span>
+                </div>
+            </article>
+
+            <article class="project-item">
+                <div class="project-header">
+                    <span class="project-title" style="cursor: default;">
+                        CSS Moderno: Por que Flexbox e Grid Mudaram a Web
+                    </span>
+                </div>
+                <p class="project-desc">
+                    Estratégias para construir interfaces responsivas, minimalistas e leves sem a necessidade de frameworks pesados, aproveitando recursos nativos dos navegadores.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML5</span>
+                    <span class="tag">CSS3</span>
+                    <span class="tag">Front-end</span>
+                    <span class="tag">Web</span>
+                </div>
+            </article>
+
+            <article class="project-item">
+                <div class="project-header">
+                    <a href="Projetos/gamehub/index.html" class="project-title">
+                        GameHub: Arquitetura e Lógica de um Catálogo Interativo <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+                <p class="project-desc">
+                    Bastidores do desenvolvimento do projeto GameHub, abordando manipulação do DOM, organização de dados em JSON e modularização com JavaScript.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">GameHub</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Games</span>
+                </div>
+            </article>
+
+            <article class="project-item">
+                <div class="project-header">
+                    <span class="project-title" style="cursor: default;">
+                        Workflow de Git: Commits Semânticos e Organização de Repositórios
+                    </span>
+                </div>
+                <p class="project-desc">
+                    Como manter o histórico de projetos claro, profissional e padronizado utilizando Conventional Commits e boas práticas no GitHub.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Git</span>
+                    <span class="tag">GitHub</span>
+                    <span class="tag">Boas Práticas</span>
+                </div>
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="container">
+        <p>© 2026 Jonathan Alexandre Rodrigues Alves</p>
+        <p><a href="index.html">← Voltar ao Início</a></p>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        const newsSearch = document.getElementById('news-search');
+        if (newsSearch) {
+            newsSearch.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+                const cards = document.querySelectorAll('#news-container .project-item');
+                cards.forEach(card => {
+                    const text = card.innerText.toLowerCase();
+                    card.style.display = text.includes(term) ? 'flex' : 'none';
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

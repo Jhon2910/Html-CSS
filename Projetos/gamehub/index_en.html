@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GameHub — Sua biblioteca e catálogo de jogos</title>
+  <title>GameHub — Your gaming library and catalog</title>
 
   <link rel="icon" type="image/png" href="img/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,28 +18,28 @@
 
   <header class="header">
     <div class="container">
-      <a href="index.html" class="logo">GAME<span>HUB</span></a>
+      <a href="index_en.html" class="logo">GAME<span>HUB</span></a>
 
       <div class="header-right">
         <nav class="nav">
-          <a href="index.html" class="ativo">Início</a>
-          <a href="catalogo.html">Catálogo</a>
-          <a href="perfil.html">Perfil</a>
-          <a href="noticias.html">Notícias</a>
-          <a href="contato.html">Contato</a>
+          <a href="index_en.html" class="ativo">Home</a>
+          <a href="catalogo_en.html">Catalog</a>
+          <a href="perfil_en.html">Profile</a>
+          <a href="noticias_en.html">News</a>
+          <a href="contato_en.html">Contact</a>
         </nav>
 
         <div class="header-controls">
-          <a href="index_en.html" class="lang-toggle" title="Switch to English">
-            <span class="active">PT</span> / <span>EN</span>
+          <a href="index.html" class="lang-toggle" title="Switch to Portuguese">
+            <span>PT</span> / <span class="active">EN</span>
           </a>
 
-          <button class="theme-toggle-btn" id="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
+          <button class="theme-toggle-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
             <i class="fa-regular fa-moon"></i>
           </button>
         </div>
 
-        <button class="menu-toggle" aria-label="Abrir menu">
+        <button class="menu-toggle" aria-label="Open menu">
           <span></span>
           <span></span>
           <span></span>
@@ -51,24 +51,24 @@
   <section class="hero">
     <div class="container">
       <div>
-        <div class="hero-tag">CATÁLOGO & BIBLIOTECA GAMER</div>
-        <h1>Sua próxima <strong>obsessão</strong> está aqui.</h1>
+        <div class="hero-tag">GAMING HUB & LIBRARY</div>
+        <h1>Your next <strong>obsession</strong> is here.</h1>
         <p>
-          Descubra lançamentos, assista a trailers oficiais e monte sua biblioteca personalizada com autenticação Google.
+          Discover new releases, watch official trailers, and build your personalized gaming library with Google Sign-In.
         </p>
         <div class="acoes-hero">
-          <a href="catalogo.html" class="btn btn-primario">Explorar catálogo</a>
-          <a href="perfil.html" class="btn btn-secundario">Meu Perfil & Favoritos</a>
+          <a href="catalogo_en.html" class="btn btn-primario">Explore catalog</a>
+          <a href="perfil_en.html" class="btn btn-secundario">My Profile & Library</a>
         </div>
       </div>
 
-      <!-- FICHA DINÂMICA DO USUÁRIO -->
+      <!-- DYNAMIC USER WIDGET -->
       <div class="ficha" id="ficha-usuario-home">
         <div class="ficha-topo">
           <div class="ficha-avatar">P1</div>
           <div>
-            <div class="ficha-nome">Carregando...</div>
-            <div class="ficha-nivel">Acesse seu perfil</div>
+            <div class="ficha-nome">Loading...</div>
+            <div class="ficha-nivel">Access your profile</div>
           </div>
         </div>
         <div class="barra-xp">
@@ -77,11 +77,11 @@
         <div class="ficha-stats">
           <div class="ficha-stat">
             <strong id="ficha-total-jogos">0</strong>
-            <span>Jogos na biblioteca</span>
+            <span>Games in library</span>
           </div>
           <div class="ficha-stat">
-            <a href="perfil.html" style="color: var(--laranja); font-size: 13px; font-weight: 600; text-decoration: underline;">
-              Gerenciar →
+            <a href="perfil_en.html" style="color: var(--laranja); font-size: 13px; font-weight: 600; text-decoration: underline;">
+              Manage →
             </a>
           </div>
         </div>
@@ -92,8 +92,8 @@
   <section class="secao">
     <div class="container">
       <div class="secao-titulo">
-        <h2>Em destaque no GameHub</h2>
-        <a href="catalogo.html" class="ver-tudo">Ver catálogo completo →</a>
+        <h2>Featured on GameHub</h2>
+        <a href="catalogo_en.html" class="ver-tudo">View full catalog →</a>
       </div>
 
       <div class="grade-jogos" id="grade-jogos-destaque"></div>
@@ -103,8 +103,8 @@
   <section class="secao" style="border-bottom: none;">
     <div class="container">
       <div class="secao-titulo">
-        <h2>Últimas notícias gamer</h2>
-        <a href="noticias.html" class="ver-tudo">Ver todas →</a>
+        <h2>Latest gaming news</h2>
+        <a href="noticias_en.html" class="ver-tudo">View all →</a>
       </div>
 
       <div class="grade-noticias" id="grade-noticias-destaque"></div>
@@ -113,12 +113,12 @@
 
   <footer class="footer">
     <div class="container">
-      <span>© 2026 GameHub. Desenvolvido por Jonathan Alexandre.</span>
+      <span>© 2026 GameHub. Developed by Jonathan Alexandre.</span>
       <div class="footer-links">
-        <a href="../../index.html">← Voltar ao Portfólio Principal</a>
-        <a href="catalogo.html">Catálogo</a>
-        <a href="perfil.html">Perfil</a>
-        <a href="contato.html">Contato</a>
+        <a href="../../index_en.html">← Back to Main Portfolio</a>
+        <a href="catalogo_en.html">Catalog</a>
+        <a href="perfil_en.html">Profile</a>
+        <a href="contato_en.html">Contact</a>
       </div>
     </div>
   </footer>
