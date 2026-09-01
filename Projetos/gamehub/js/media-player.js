@@ -1,11 +1,3 @@
-/**
- * ===================================================================
- * GAMEHUB RESILIENT MEDIA ENGINE
- * Motor de reprodução de trailers e backgrounds de alta performance
- * Suporte a HTML5 Nativo (MP4/WebM), Embeds Seguros e Pôster Fallback
- * ===================================================================
- */
-
 class GameHubMediaPlayer {
   constructor(containerId, options = {}) {
     this.container = typeof containerId === "string" ? document.getElementById(containerId) : containerId;
@@ -14,25 +6,19 @@ class GameHubMediaPlayer {
       muted: options.muted !== undefined ? options.muted : false,
       loop: options.loop || false,
       controls: options.controls !== undefined ? options.controls : true,
-      poster: options.poster || "https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png",
+      poster: options.poster || "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg",
       titulo: options.titulo || "Trailer Oficial",
       isEn: options.isEn || false,
       ...options
     };
   }
 
-  /**
-   * Extrai o ID limpo do vídeo do YouTube caso uma URL completa seja informada
-   */
   static extrairYoutubeId(url) {
     if (!url) return "";
     const match = url.match(/(?:embed\/|v=|vi\/|youtu\.be\/|\/v\/|watch\?v=|&v=)([\w-]{11})/);
     return (match && match[1]) ? match[1] : (url.length === 11 ? url : "");
   }
 
-  /**
-   * Renderiza vídeo nativo HTML5 (MP4/WebM via CDN com aceleração de hardware)
-   */
   renderizarVideoNativo(videoUrl) {
     if (!this.container) return;
 
@@ -56,9 +42,6 @@ class GameHubMediaPlayer {
     `;
   }
 
-  /**
-   * Renderiza player incorporado com youtube-nocookie, sandbox e permissions policy
-   */
   renderizarEmbed(youtubeIdOuUrl, linkDireto = "") {
     if (!this.container) return;
 
@@ -93,9 +76,6 @@ class GameHubMediaPlayer {
     `;
   }
 
-  /**
-   * Pôster interativo de alta resolução com botão direto quando a incorporação for restrita
-   */
   renderizarPosterFallback(linkDireto = "") {
     if (!this.container) return;
 
@@ -116,9 +96,6 @@ class GameHubMediaPlayer {
     `;
   }
 
-  /**
-   * Roteador de mídia inteligente
-   */
   carregarMidia(fonteVideo, linkFallback = "") {
     if (!fonteVideo) {
       this.renderizarPosterFallback(linkFallback);
@@ -127,20 +104,14 @@ class GameHubMediaPlayer {
 
     const fonte = fonteVideo.trim();
 
-    // Se for arquivo de vídeo direto (.mp4, .webm, .m3u8, CDN da Steam)
     if (fonte.endsWith(".mp4") || fonte.endsWith(".webm") || fonte.includes("/video/") || fonte.includes("steamstatic.com")) {
       this.renderizarVideoNativo(fonte);
-    } 
-    // Se for YouTube
-    else if (fonte.includes("youtube") || fonte.includes("youtu.be") || fonte.length === 11) {
+    } else if (fonte.includes("youtube") || fonte.includes("youtu.be") || fonte.length === 11) {
       this.renderizarEmbed(fonte, linkFallback);
-    } 
-    // Fallback padrão
-    else {
+    } else {
       this.renderizarPosterFallback(linkFallback);
     }
   }
 }
 
-// Exportação global
 window.GameHubMediaPlayer = GameHubMediaPlayer;

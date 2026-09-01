@@ -1,7 +1,3 @@
-// =======================================================
-// GAMEHUB GAME DETAILS ENGINE (IGDB BACKDROP, LANGUAGES & REVIEWS)
-// =======================================================
-
 function pegarParametroDaURL(nomeDoParametro) {
   const parametros = new URLSearchParams(window.location.search);
   return parametros.get(nomeDoParametro);
@@ -20,9 +16,6 @@ function extrairIdYoutube(url) {
   return (match && match[1]) ? match[1] : "";
 }
 
-// -------------------------------------------------------
-// MOTOR DE COMENTÁRIOS E AVALIAÇÕES (LOCALSTORAGE)
-// -------------------------------------------------------
 function obterComentariosDoJogo(idDoJogo, comentariosPadrao = []) {
   const storageKey = `gamehub_comentarios_${idDoJogo}`;
   try {
@@ -30,9 +23,7 @@ function obterComentariosDoJogo(idDoJogo, comentariosPadrao = []) {
     if (salvos) {
       return JSON.parse(salvos);
     }
-  } catch (e) {
-    console.warn("Erro ao ler comentários:", e);
-  }
+  } catch (e) {}
   return comentariosPadrao;
 }
 
@@ -40,9 +31,7 @@ function salvarComentariosDoJogo(idDoJogo, listaComentarios) {
   const storageKey = `gamehub_comentarios_${idDoJogo}`;
   try {
     localStorage.setItem(storageKey, JSON.stringify(listaComentarios));
-  } catch (e) {
-    console.warn("Erro ao salvar comentários:", e);
-  }
+  } catch (e) {}
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -95,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const trailerUrlDireta = jogo.trailerUrl || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "");
 
   // Imagens
-  const imagemCapa = jogo.imagem || "https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png";
+  const imagemCapa = jogo.imagem || "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg";
   const imagemFundo = jogo.fundo || imagemCapa;
 
   // Lojas Oficiais
@@ -126,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <img
                 src="${imagemCapa}"
                 alt="${escapeHtml(nomeExibido)}"
-                onerror="this.onerror=null;this.src='https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png';"
+                onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg';"
               />
             </div>
 
@@ -340,9 +329,6 @@ document.addEventListener("DOMContentLoaded", function () {
     mediaPlayer.carregarMidia(jogo.trailer || videoId || trailerUrlDireta, trailerUrlDireta);
   }
 
-  // -------------------------------------------------------
-  // CONTROLE DE ABAS (SOBRE / COMENTÁRIOS)
-  // -------------------------------------------------------
   const abaBotoes = document.querySelectorAll(".aba-btn");
   abaBotoes.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -356,9 +342,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // -------------------------------------------------------
-  // RENDERIZAÇÃO DE COMENTÁRIOS
-  // -------------------------------------------------------
   function renderizarListaComentarios() {
     const listaContainer = document.getElementById("lista-comentarios-container");
     if (!listaContainer) return;
@@ -415,9 +398,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   renderizarListaComentarios();
 
-  // -------------------------------------------------------
-  // CURTIR COMENTÁRIO
-  // -------------------------------------------------------
   window.curtirComentario = function (index) {
     if (comentarios[index]) {
       comentarios[index].likes = (comentarios[index].likes || 0) + 1;
@@ -426,9 +406,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // -------------------------------------------------------
-  // SELETOR DE ESTRELAS NO FORMULÁRIO
-  // -------------------------------------------------------
   const estrelas = document.querySelectorAll("#estrelas-seletor i");
   const inputNota = document.getElementById("input-nota-comentario");
 
@@ -447,9 +424,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // -------------------------------------------------------
-  // ENVIAR NOVO COMENTÁRIO
-  // -------------------------------------------------------
   const btnEnviar = document.getElementById("btn-enviar-comentario");
   const textarea = document.getElementById("texto-novo-comentario");
 

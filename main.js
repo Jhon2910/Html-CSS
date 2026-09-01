@@ -1,49 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
     const isEnglish = document.documentElement.lang === "en";
 
-    // Host dinâmico para backend local
     const host = window.location.hostname && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && window.location.protocol !== "file:"
         ? window.location.hostname
         : "localhost";
     const API_BASE_URL = `http://${host}:8080`;
 
-    // 1. Alternador de Tema (Light / Dark)
     initTheme();
 
-    // 2. Busca projetos do backend local se estiver ativo (apenas na página PT)
     if (!isEnglish) {
         fetchProjectsFromBackend(API_BASE_URL);
     }
 
-    // 3. Gerenciamento do Formulário de Contato
     initContactForm(API_BASE_URL, isEnglish);
 });
 
-/* =======================================================
-   THEME TOGGLE (LIGHT / DARK)
-======================================================= */
 function initTheme() {
     const themeBtn = document.getElementById("theme-toggle");
+    
+    const savedTheme = localStorage.getItem("theme") || localStorage.getItem("portfolio_theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const activeTheme = savedTheme ? savedTheme : (systemPrefersDark ? "dark" : "light");
+
+    document.documentElement.setAttribute("data-theme", activeTheme);
+    localStorage.setItem("theme", activeTheme);
+    localStorage.setItem("portfolio_theme", activeTheme);
+    updateThemeIcon(activeTheme === "dark");
+
     if (!themeBtn) return;
 
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        updateThemeIcon(true);
-    } else {
-        document.documentElement.setAttribute("data-theme", "light");
-        updateThemeIcon(false);
-    }
-
     themeBtn.addEventListener("click", () => {
-        const isCurrentDark = document.documentElement.getAttribute("data-theme") === "dark";
-        const newTheme = isCurrentDark ? "light" : "dark";
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
 
         document.documentElement.setAttribute("data-theme", newTheme);
         localStorage.setItem("theme", newTheme);
-        updateThemeIcon(!isCurrentDark);
+        localStorage.setItem("portfolio_theme", newTheme);
+        updateThemeIcon(newTheme === "dark");
     });
 }
 
@@ -54,18 +47,17 @@ function updateThemeIcon(isDark) {
     const icon = themeBtn.querySelector("i");
     if (!icon) return;
 
+    const isEnglish = document.documentElement.lang === "en";
+
     if (isDark) {
         icon.className = "fa-regular fa-sun";
-        themeBtn.title = "Mudar para modo claro";
+        themeBtn.title = isEnglish ? "Switch to light mode" : "Mudar para modo claro";
     } else {
         icon.className = "fa-regular fa-moon";
-        themeBtn.title = "Mudar para modo escuro";
+        themeBtn.title = isEnglish ? "Switch to dark mode" : "Mudar para modo escuro";
     }
 }
 
-/* =======================================================
-   BACKEND PROJECTS FETCH (OPCIONAL)
-======================================================= */
 function fetchProjectsFromBackend(apiBaseUrl) {
     fetch(`${apiBaseUrl}/api/projetos`)
         .then(res => {
@@ -97,14 +89,9 @@ function fetchProjectsFromBackend(apiBaseUrl) {
                 container.appendChild(article);
             });
         })
-        .catch(() => {
-            // Mantém os projetos estáticos se o backend estiver offline
-        });
+        .catch(() => {});
 }
 
-/* =======================================================
-   CONTACT FORM HANDLER
-======================================================= */
 function initContactForm(apiBaseUrl, isEnglish) {
     const form = document.getElementById("form-contato");
     if (!form) return;
@@ -126,7 +113,6 @@ function initContactForm(apiBaseUrl, isEnglish) {
             feedback.innerText = "";
         }
 
-        // Envio secundário para backend local Spring Boot (se estiver rodando)
         const payload = {
             nome: document.getElementById("nome")?.value || "",
             email: document.getElementById("email")?.value || "",
@@ -140,7 +126,6 @@ function initContactForm(apiBaseUrl, isEnglish) {
             body: JSON.stringify(payload)
         }).catch(() => {});
 
-        // Envio principal para Formspree
         const formData = new FormData(form);
 
         try {

@@ -14,9 +14,6 @@
 
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Google Identity Services (GSI) API -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
   <style>
     .auth-card-box {
       max-width: 520px;
@@ -42,11 +39,11 @@
       line-height: 1.5;
     }
 
-    .btn-google-connect {
+    .btn-quick-login {
       width: 100%;
-      background: #ffffff;
-      color: #374151;
-      border: 1px solid #d1d5db;
+      background: var(--bg-card);
+      color: var(--texto);
+      border: 1px solid var(--linha);
       padding: 12px 16px;
       border-radius: 8px;
       font-size: 14px;
@@ -55,14 +52,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       font-family: inherit;
       transition: all 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .btn-google-connect:hover {
-      background: #f9fafb;
+    .btn-quick-login:hover {
+      background: var(--laranja);
+      color: #ffffff;
+      border-color: var(--laranja);
+      transform: translateY(-1px);
+    }
       border-color: #9ca3af;
       transform: translateY(-1px);
     }
@@ -474,30 +474,14 @@
     <!-- Rendered dynamically via JavaScript -->
   </div>
 
-  <!-- MODAL TO ADD ANOTHER GOOGLE / CUSTOM ACCOUNT -->
+  <!-- MODAL TO ADD ANOTHER PROFILE / ACCOUNT -->
   <div class="modal-overlay" id="modal-adicionar-conta">
     <div class="modal-box">
       <button class="btn-fechar-modal" id="btn-fechar-modal-conta">&times;</button>
       <div style="text-align: center; margin-bottom: 20px;">
-        <i class="fa-brands fa-google" style="font-size: 32px; color: var(--laranja); margin-bottom: 8px;"></i>
-        <h3 style="font-size: 20px; color: var(--texto);">Add Another Account</h3>
-        <p style="font-size: 13px; color: var(--texto-fraco);">Connect another Google account or create a new player profile.</p>
-      </div>
-
-      <div id="google-signin-btn-container" style="display: flex; justify-content: center; margin-bottom: 16px;"></div>
-
-      <button class="btn-google-connect" id="btn-google-simulado-modal">
-        <svg width="18" height="18" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        <span>Sign In with another Google Account</span>
-      </button>
-
-      <div class="auth-divider">
-        <span>or enter credentials</span>
+        <i class="fa-solid fa-user-plus" style="font-size: 32px; color: var(--laranja); margin-bottom: 8px;"></i>
+        <h3 style="font-size: 20px; color: var(--texto);">Add New Account</h3>
+        <p style="font-size: 13px; color: var(--texto-fraco);">Register a new player profile with your name and email.</p>
       </div>
 
       <form class="form-auth" id="form-adicionar-conta-manual">
@@ -507,7 +491,7 @@
         </div>
         <div>
           <label for="modal-email">Email</label>
-          <input type="email" id="modal-email" placeholder="newaccount@gmail.com" required>
+          <input type="email" id="modal-email" placeholder="player2@example.com" required>
         </div>
         <button type="submit" class="btn-auth-submit">
           <i class="fa-solid fa-plus"></i> Save & Switch to this Account
@@ -545,21 +529,7 @@
           <div class="auth-card-box">
             <i class="fa-solid fa-gamepad" style="font-size: 40px; color: var(--laranja); margin-bottom: 14px;"></i>
             <h2>Access your GameHub Profile</h2>
-            <p>Connect your Google account to manage your library and save your favorite games.</p>
-
-            <button class="btn-google-connect" id="btn-google-login-action">
-              <svg width="18" height="18" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
-              <span>Connect with Google (Jonathan Alexandre)</span>
-            </button>
-
-            <div class="auth-divider">
-              <span>or enter details</span>
-            </div>
+            <p>Enter your name and email to access your personalized library and save your favorite games.</p>
 
             <form class="form-auth" id="form-cadastro-inicial">
               <div>
@@ -568,16 +538,25 @@
               </div>
               <div>
                 <label for="cad-email">Your Email</label>
-                <input type="email" id="cad-email" placeholder="youremail@example.com" required>
+                <input type="email" id="cad-email" placeholder="jonathanalexandre2910@gmail.com" required>
               </div>
               <button type="submit" class="btn-auth-submit">
-                <i class="fa-solid fa-right-to-bracket"></i> Sign In / Create Account
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In / Create Profile
               </button>
             </form>
+
+            <div class="auth-divider">
+              <span>or quick access</span>
+            </div>
+
+            <button class="btn-quick-login" id="btn-quick-jonathan">
+              <i class="fa-solid fa-user-check"></i>
+              <span>Sign In as Jonathan Alexandre</span>
+            </button>
           </div>
         `;
 
-        document.getElementById("btn-google-login-action")?.addEventListener("click", () => {
+        document.getElementById("btn-quick-jonathan")?.addEventListener("click", () => {
           cadastrarOuTrocarContaManual("Jonathan Alexandre", "jonathanalexandre2910@gmail.com", "img/avatar-jonathan.png");
           window.location.reload();
         });
@@ -592,7 +571,7 @@
         });
 
       } else {
-        // ACTIVE PROFILE + MULTI-ACCOUNT MANAGER
+        // ACTIVE PROFILE + ACCOUNT MANAGER
         const favoritosIds = obterFavoritos();
         const jogosFavoritos = typeof listaDeJogos !== "undefined" 
           ? listaDeJogos.filter(j => favoritosIds.includes(j.id)) 
@@ -615,7 +594,7 @@
               <h1>${escapeHtml(usuario.nome)}</h1>
               <p><i class="fa-regular fa-envelope"></i> ${escapeHtml(usuario.email)}</p>
               <div class="perfil-badge">
-                <i class="fa-solid fa-circle-check"></i> ${usuario.provedor === 'google' ? 'Google Account Connected' : 'GameHub Account'} • Member since ${usuario.criadoEm || 'Feb. 2026'}
+                <i class="fa-solid fa-circle-check"></i> Active Profile • Member since ${usuario.criadoEm || 'Feb. 2026'}
               </div>
             </div>
 
@@ -633,11 +612,11 @@
           <div class="secao-contas-box">
             <div class="secao-contas-header">
               <div>
-                <h3><i class="fa-brands fa-google" style="color: var(--laranja);"></i> Account Manager (${todasContas.length})</h3>
-                <p style="font-size: 13px; color: var(--texto-fraco);">Quickly switch between accounts or link a new Google account.</p>
+                <h3><i class="fa-solid fa-users" style="color: var(--laranja);"></i> Account Manager (${todasContas.length})</h3>
+                <p style="font-size: 13px; color: var(--texto-fraco);">Quickly switch between accounts or add a new email profile.</p>
               </div>
               <button class="btn-perfil-acao" id="btn-add-conta-atalho" style="border-color: var(--laranja); color: var(--laranja);">
-                <i class="fa-solid fa-user-plus"></i> + Add Another Account
+                <i class="fa-solid fa-user-plus"></i> + New Account
               </button>
             </div>
 
@@ -704,7 +683,7 @@
                 ${jogosFavoritos.map(j => `
                   <div class="card-fav">
                     <a href="jogo_en.html?id=${j.id}">
-                      <img src="${j.imagem}" alt="${escapeHtml(j.nome_en || j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn2.steamgriddb.com/grid/6703fa1a9aa669046522c079ce851cf5.png';">
+                      <img src="${j.imagem}" alt="${escapeHtml(j.nome_en || j.nome)}" class="card-fav-img" onerror="this.onerror=null;this.src='https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg';">
                     </a>
                     <div class="card-fav-body">
                       <div>
@@ -756,15 +735,6 @@
         btnAbrirModal?.addEventListener("click", abrirModal);
         btnAddAtalho?.addEventListener("click", abrirModal);
         btnFecharModal?.addEventListener("click", fecharModal);
-
-        document.getElementById("btn-google-simulado-modal")?.addEventListener("click", () => {
-          const nomePrompt = prompt("Enter your Google Account Name:", "Jonathan Google");
-          const emailPrompt = prompt("Enter your Google Email:", "user.google@gmail.com");
-          if (nomePrompt && emailPrompt) {
-            cadastrarOuTrocarContaManual(nomePrompt, emailPrompt, "https://cdn-icons-png.flaticon.com/512/300/300221.png");
-            window.location.reload();
-          }
-        });
 
         document.getElementById("form-adicionar-conta-manual")?.addEventListener("submit", (e) => {
           e.preventDefault();

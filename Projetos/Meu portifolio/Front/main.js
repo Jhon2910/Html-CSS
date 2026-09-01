@@ -176,10 +176,13 @@ function initThemeToggle() {
     const toggleBtn = document.getElementById("theme-toggle");
     if (!toggleBtn) return;
 
-    const savedTheme = localStorage.getItem("portfolio_theme") || "dark";
+    const savedTheme = localStorage.getItem("theme") || localStorage.getItem("portfolio_theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const activeTheme = savedTheme ? savedTheme : (systemPrefersDark ? "dark" : "light");
 
     function applyTheme(theme) {
         document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
         localStorage.setItem("portfolio_theme", theme);
 
         const icon = toggleBtn.querySelector("i");
@@ -192,7 +195,7 @@ function initThemeToggle() {
         }
     }
 
-    applyTheme(savedTheme);
+    applyTheme(activeTheme);
 
     toggleBtn.addEventListener("click", () => {
         const currentTheme = document.documentElement.getAttribute("data-theme") || "light";

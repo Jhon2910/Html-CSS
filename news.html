@@ -5,13 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Previne flash de tema ao navegar -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem("theme") || localStorage.getItem("portfolio_theme");
+            const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = saved ? saved : (systemDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <title>Tech News & Insights | Jonathan Alexandre</title>
+    <title>Tech News & Articles | Jonathan Alexandre</title>
 </head>
 
 <body>
