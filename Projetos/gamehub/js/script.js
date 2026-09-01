@@ -1,30 +1,22 @@
-// =======================================================
-// GAMEHUB MAIN ENGINE (THEME, BILINGUAL, REAL-TIME NEWS)
-// =======================================================
-
-// 1. Inicializar Tema (Dark / Bright)
 function initThemeGamehub() {
   const themeBtn = document.getElementById("theme-toggle");
-  const savedTheme = localStorage.getItem("theme");
+  const savedTheme = localStorage.getItem("theme") || localStorage.getItem("portfolio_theme");
   const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const activeTheme = savedTheme ? savedTheme : (systemPrefersDark ? "dark" : "light");
 
-  const isLight = savedTheme === "light" || (savedTheme === null && !systemPrefersDark);
-
-  if (isLight) {
-    document.documentElement.setAttribute("data-theme", "light");
-    updateThemeIcon(false);
-  } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    updateThemeIcon(true);
-  }
+  document.documentElement.setAttribute("data-theme", activeTheme);
+  localStorage.setItem("theme", activeTheme);
+  localStorage.setItem("portfolio_theme", activeTheme);
+  updateThemeIcon(activeTheme === "dark");
 
   if (themeBtn) {
     themeBtn.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
       const nextTheme = currentTheme === "light" ? "dark" : "light";
 
       document.documentElement.setAttribute("data-theme", nextTheme);
       localStorage.setItem("theme", nextTheme);
+      localStorage.setItem("portfolio_theme", nextTheme);
       updateThemeIcon(nextTheme === "dark");
     });
   }
@@ -45,7 +37,6 @@ function updateThemeIcon(isDark) {
   }
 }
 
-// 2. Menu Mobile
 function configurarMenuMobile() {
   const botaoMenu = document.querySelector(".menu-toggle");
   const menuNav = document.querySelector(".nav");
@@ -57,7 +48,6 @@ function configurarMenuMobile() {
   });
 }
 
-// 3. Renderizar card de jogo com suporte bilíngue e aspecto de poster vertical
 function criarCardJogo(jogo) {
   const favoritado = typeof ehFavorito === "function" && ehFavorito(jogo.id);
   const isEn = document.documentElement.lang === "en" || window.location.pathname.includes("_en.html");
@@ -112,7 +102,6 @@ window.toggleFavCard = function (event, id) {
   }
 };
 
-// 4. Mostrar Jogos em container
 function mostrarJogos(jogos, idDoElemento) {
   const elemento = document.getElementById(idDoElemento);
   if (!elemento) return;
@@ -131,7 +120,6 @@ function mostrarJogos(jogos, idDoElemento) {
   elemento.innerHTML = jogos.map(criarCardJogo).join("");
 }
 
-// 5. Configurar Filtros e Busca no Catálogo
 function configurarCatalogo() {
   const gradeCatalogo = document.getElementById("grade-jogos-catalogo");
   if (!gradeCatalogo || typeof listaDeJogos === "undefined") return;
@@ -196,7 +184,6 @@ function configurarCatalogo() {
   aplicarFiltros();
 }
 
-// 6. Notícias com Separação Estrita de Idioma
 function criarCardNoticia(noticia) {
   const isEn = document.documentElement.lang === "en" || window.location.pathname.includes("_en.html");
   const fonte = noticia.fonte || (isEn ? "GAMING RADAR" : "RADAR GAMER");
@@ -252,7 +239,6 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// 7. Sincronização Dinâmica com a API do Backend / IGDB
 async function sincronizarComBackendIgdb() {
   try {
     const controller = new AbortController();
@@ -270,34 +256,28 @@ async function sincronizarComBackendIgdb() {
       }
     }
   } catch (e) {
-    // Backend offline ou rodando de forma estática: mantém a base pré-carregada
   }
 }
 
-// 8. Inicialização Geral
 document.addEventListener("DOMContentLoaded", function () {
   initThemeGamehub();
   configurarMenuMobile();
 
-  // Destaques na Home
   const gradeDestaque = document.getElementById("grade-jogos-destaque");
   if (gradeDestaque && typeof listaDeJogos !== "undefined") {
     mostrarJogos(listaDeJogos.slice(0, 8), "grade-jogos-destaque");
   }
 
-  // Notícias na Home
   const noticiasDestaque = document.getElementById("grade-noticias-destaque");
   if (noticiasDestaque) {
     carregarEExibirNoticias("grade-noticias-destaque", 4);
   }
 
-  // Notícias Completas
   const noticiasCompleta = document.getElementById("grade-noticias-completa");
   if (noticiasCompleta) {
     carregarEExibirNoticias("grade-noticias-completa");
   }
 
-  // Botão de Atualizar Notícias
   const btnRefreshNews = document.getElementById("btn-refresh-news");
   if (btnRefreshNews) {
     btnRefreshNews.addEventListener("click", () => {
@@ -305,9 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Catálogo
   configurarCatalogo();
 
-  // Tenta carregar os dados ao vivo da API do backend Spring Boot / IGDB
   sincronizarComBackendIgdb();
 });

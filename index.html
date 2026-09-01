@@ -5,6 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Previne flash de tema ao navegar -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem("theme") || localStorage.getItem("portfolio_theme");
+            const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = saved ? saved : (systemDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 
@@ -47,7 +57,7 @@
 
         <!-- PORTAL HERO (INÍCIO / HUB) -->
         <section class="portal-hero">
-            <div>
+            <div class="portal-hero-content">
                 <span class="portal-badge">
                     <span class="portal-dot"></span> Jonathan Alexandre • Portal Oficial
                 </span>
@@ -66,34 +76,6 @@
                     <a href="#contato-direto" class="portal-btn portal-btn-outline">
                         <i class="fa-regular fa-paper-plane"></i> Contato
                     </a>
-                </div>
-            </div>
-
-            <!-- CARD DE APRESENTAÇÃO LATERAL -->
-            <div class="portal-card">
-                <div class="portal-card-header">
-                    <img src="img/imagem.png" alt="Foto de Jonathan Alexandre" class="portal-card-avatar">
-                    <div class="portal-card-info">
-                        <h3>Jonathan Alexandre</h3>
-                        <p><i class="fa-solid fa-graduation-cap"></i> Sistemas de Informação • IFMG</p>
-                    </div>
-                </div>
-
-                <div class="portal-tags">
-                    <span class="portal-tag-item">💻 Java / Spring Boot</span>
-                    <span class="portal-tag-item">🌐 Web & APIs</span>
-                    <span class="portal-tag-item">🎮 Game Platform</span>
-                    <span class="portal-tag-item">🗄️ SQL & Data</span>
-                </div>
-
-                <div class="portal-card-footer">
-                    <span style="color: var(--text-muted);"><i class="fa-regular fa-circle-check" style="color: #10b981;"></i> Desenvolvedor de Software</span>
-                    <div class="portal-social-links">
-                        <a href="https://github.com/Jhon2910" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/jonathan-rodrigues-18536a340/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://wa.me/5531988234307?text=Ol%C3%A1%20Jonathan,%20vi%20seu%20site%20e%20gostaria%20de%20conversar!" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="mailto:jonathanalexandre2910@gmail.com" title="E-mail"><i class="fa-regular fa-envelope"></i></a>
-                    </div>
                 </div>
             </div>
         </section>

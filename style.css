@@ -210,13 +210,14 @@ h2 {
    PORTAL HERO (INÍCIO / HUB PRINCIPAL)
 ======================================================= */
 .portal-hero {
-    display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 40px;
-    align-items: center;
-    padding: 24px 0 48px;
+    display: block;
+    padding: 32px 0 48px;
     margin-bottom: 48px;
     border-bottom: 1px solid var(--border);
+}
+
+.portal-hero-content {
+    max-width: 780px;
 }
 
 .portal-badge {
