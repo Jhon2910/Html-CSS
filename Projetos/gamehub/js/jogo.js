@@ -89,9 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Lojas Oficiais
   const termoBuscaLoja = encodeURIComponent(jogo.nome);
+  const plataformasJogo = (jogo.plataformas || "").toLowerCase();
+  const ehNintendo = plataformasJogo.includes("nintendo") || plataformasJogo.includes("switch") || plataformasJogo.includes("wii") || plataformasJogo.includes("3ds") || plataformasJogo.includes("ds");
+  const temSteam = plataformasJogo.includes("pc");
+  const temPlayStation = plataformasJogo.includes("playstation") || plataformasJogo.includes("ps4") || plataformasJogo.includes("ps5");
+  const temXbox = plataformasJogo.includes("xbox");
   const linkSteam = `https://store.steampowered.com/search/?term=${termoBuscaLoja}`;
   const linkPsn = `https://store.playstation.com/search/${termoBuscaLoja}`;
   const linkXbox = `https://www.xbox.com/search?q=${termoBuscaLoja}`;
+  const linkNintendo = `https://www.nintendo.com/us/search/#q=${termoBuscaLoja}`;
 
   // Status de Lançamento e Avaliação
   const ehLancado = jogo.lancado !== false && jogo.nota !== null;
@@ -204,15 +210,18 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="secao-lojas">
                 <h3><i class="fa-solid fa-download" style="color: var(--laranja);"></i> ${isEn ? 'Get / Wishlist on Official Stores' : 'Baixar / Lista de Desejos nas Lojas Oficiais'}</h3>
                 <div class="lojas-grid">
-                  <a href="${linkSteam}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-steam">
+                  ${temSteam ? `<a href="${linkSteam}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-steam">
                     <i class="fa-brands fa-steam"></i> Steam (PC)
-                  </a>
-                  <a href="${linkPsn}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-psn">
+                  </a>` : ""}
+                  ${temPlayStation ? `<a href="${linkPsn}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-psn">
                     <i class="fa-brands fa-playstation"></i> PlayStation Store
-                  </a>
-                  <a href="${linkXbox}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-xbox">
+                  </a>` : ""}
+                  ${temXbox ? `<a href="${linkXbox}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-xbox">
                     <i class="fa-brands fa-xbox"></i> Xbox Store
-                  </a>
+                  </a>` : ""}
+                  ${ehNintendo ? `<a href="${linkNintendo}" target="_blank" rel="noopener noreferrer" class="btn-loja btn-loja-nintendo">
+                    <i class="fa-solid fa-gamepad"></i> Nintendo Store
+                  </a>` : ""}
                 </div>
               </div>
             </div>

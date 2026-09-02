@@ -115,6 +115,12 @@ Este projeto foi desenvolvido com o objetivo de praticar conceitos de:
 3. Execute utilizando o Live Server ou outro servidor local.
 4. Acesse o arquivo `index.html` pelo navegador.
 
+### Capas dos jogos
+
+As capas são carregadas diretamente pelas URLs salvas no arquivo `js/dados.js`, incluindo URLs da CDN da IGDB quando disponíveis. O backend não é necessário para exibir o catálogo e pode permanecer desligado.
+
+Abra o GameHub por um servidor local, como o Live Server, para evitar restrições do navegador ao carregar os arquivos.
+
 ---
 
 ## 👨‍💻 Autor
