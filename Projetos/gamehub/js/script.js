@@ -124,16 +124,57 @@ function configurarCatalogo() {
   const gradeCatalogo = document.getElementById("grade-jogos-catalogo");
   if (!gradeCatalogo || typeof listaDeJogos === "undefined") return;
 
+  if (typeof window.atualizarCatalogo === "function") {
+    window.atualizarCatalogo();
+    return;
+  }
+
+  const jogosDisponiveis = () => window.listaDeJogos || listaDeJogos;
+
   const campoBusca = document.getElementById("campo-busca");
   const botoesFiltro = document.querySelectorAll(".filtro-btn");
   const contador = document.getElementById("catalogo-contador");
+  const paginacao = document.getElementById("paginacao-catalogo");
   const isEn = document.documentElement.lang === "en" || window.location.pathname.includes("_en.html");
+  const jogosPorPagina = 20;
 
   let categoriaAtiva = "todos";
   let termoBusca = "";
+  let paginaAtual = 1;
+
+  function renderizarPaginacao(totalDePaginas) {
+    if (!paginacao) return;
+
+    if (totalDePaginas <= 1) {
+      paginacao.innerHTML = "";
+      return;
+    }
+
+    const paginas = Array.from({ length: totalDePaginas }, (_, indice) => indice + 1);
+    paginacao.innerHTML = `
+      <button class="pagina-btn" data-pagina="${paginaAtual - 1}" ${paginaAtual === 1 ? "disabled" : ""} aria-label="${isEn ? "Previous page" : "Página anterior"}">
+        <i class="fa-solid fa-chevron-left"></i> ${isEn ? "Previous" : "Anterior"}
+      </button>
+      <div class="pagina-numeros">
+        ${paginas.map(pagina => `<button class="pagina-btn pagina-numero ${pagina === paginaAtual ? "ativo" : ""}" data-pagina="${pagina}" aria-current="${pagina === paginaAtual ? "page" : "false"}">${pagina}</button>`).join("")}
+      </div>
+      <button class="pagina-btn" data-pagina="${paginaAtual + 1}" ${paginaAtual === totalDePaginas ? "disabled" : ""} aria-label="${isEn ? "Next page" : "Próxima página"}">
+        ${isEn ? "Next" : "Próxima"} <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    `;
+
+    paginacao.querySelectorAll("[data-pagina]").forEach(botao => {
+      botao.addEventListener("click", () => {
+        paginaAtual = Number(botao.dataset.pagina);
+        aplicarFiltros();
+        gradeCatalogo.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
 
   function aplicarFiltros() {
-    let filtrados = listaDeJogos;
+    const jogos = jogosDisponiveis();
+    let filtrados = jogos;
 
     if (categoriaAtiva !== "todos") {
       filtrados = filtrados.filter(j => {
@@ -154,14 +195,20 @@ function configurarCatalogo() {
       );
     }
 
-    mostrarJogos(filtrados, "grade-jogos-catalogo");
+    const totalDePaginas = Math.max(1, Math.ceil(filtrados.length / jogosPorPagina));
+    paginaAtual = Math.min(paginaAtual, totalDePaginas);
+    const inicio = (paginaAtual - 1) * jogosPorPagina;
+    mostrarJogos(filtrados.slice(inicio, inicio + jogosPorPagina), "grade-jogos-catalogo");
+    renderizarPaginacao(totalDePaginas);
 
     if (contador) {
       contador.textContent = isEn
-        ? `Showing ${filtrados.length} of ${listaDeJogos.length} available games`
-        : `Exibindo ${filtrados.length} de ${listaDeJogos.length} jogos disponíveis`;
+        ? `Showing ${filtrados.length ? inicio + 1 : 0}-${Math.min(inicio + jogosPorPagina, filtrados.length)} of ${filtrados.length} games | Page ${paginaAtual} of ${totalDePaginas}`
+        : `Exibindo ${filtrados.length ? inicio + 1 : 0}-${Math.min(inicio + jogosPorPagina, filtrados.length)} de ${filtrados.length} jogos | Página ${paginaAtual} de ${totalDePaginas}`;
     }
   }
+
+  window.atualizarCatalogo = aplicarFiltros;
 
   if (botoesFiltro) {
     botoesFiltro.forEach(botao => {
@@ -169,6 +216,7 @@ function configurarCatalogo() {
         botoesFiltro.forEach(b => b.classList.remove("ativo"));
         botao.classList.add("ativo");
         categoriaAtiva = botao.dataset.categoria;
+        paginaAtual = 1;
         aplicarFiltros();
       });
     });
@@ -177,6 +225,7 @@ function configurarCatalogo() {
   if (campoBusca) {
     campoBusca.addEventListener("input", (e) => {
       termoBusca = e.target.value.toLowerCase().trim();
+      paginaAtual = 1;
       aplicarFiltros();
     });
   }
@@ -239,26 +288,6 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-async function sincronizarComBackendIgdb() {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1500);
-    const res = await fetch("http://localhost:8080/api/jogos?limite=100", { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (res.ok) {
-      const dadosRemotos = await res.json();
-      if (Array.isArray(dadosRemotos) && dadosRemotos.length > 0) {
-        window.listaDeJogos = dadosRemotos;
-        const gradeDestaque = document.getElementById("grade-jogos-destaque");
-        if (gradeDestaque) mostrarJogos(window.listaDeJogos.slice(0, 8), "grade-jogos-destaque");
-        const gradeCatalogo = document.getElementById("grade-jogos-catalogo");
-        if (gradeCatalogo) configurarCatalogo();
-      }
-    }
-  } catch (e) {
-  }
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   initThemeGamehub();
   configurarMenuMobile();
@@ -287,5 +316,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   configurarCatalogo();
 
-  sincronizarComBackendIgdb();
 });
